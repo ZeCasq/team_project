@@ -35,9 +35,6 @@
     <ClCompile Include="start_screen.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="level.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
