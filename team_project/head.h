@@ -15,3 +15,4 @@ void CursorView(char show); //커서 존재 유무 조정
 void gotoxy(int x, int y);  // 커서 위치 이동
 void mainPtr(void); //시작창
 void game(void); //게임 전반적인 구성
+int level(void);

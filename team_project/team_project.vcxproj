@@ -133,6 +133,7 @@
     <ClCompile Include="CursorView.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gotoxy.c" />
+    <ClCompile Include="level.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Setcolor.c" />
     <ClCompile Include="start_screen.c" />

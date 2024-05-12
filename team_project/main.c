@@ -4,7 +4,7 @@
 
 
 int main(void) {
-
+	int lev;
 	//시작 화면 파트
 	int POS = 0;
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
@@ -53,8 +53,21 @@ int main(void) {
 	switch (POS) {
 	//게임 시작 파트
 	case 0 :
-		game();
+		lev = level();
+		cls;
+		/*
+		switch (lev) {
+		//쉬움
+		case 0 :
 
+		//보통
+		case 1:
+
+		//어려움
+		case 2:
+
+		}*/
+		game();
 	}
 
 	pause;
