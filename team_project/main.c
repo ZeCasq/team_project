@@ -6,11 +6,14 @@ void con_txt(void);
 void game(void);
 int main_menu(void);
 
-int main(void) {
-	int lev;
-	int POS;
 
-	POS = main_menu();
+
+
+int main(void) {
+	
+	int lev;
+	int POS = main_menu();
+	Sleep(300);
 	
 
 	//게임 부분
@@ -31,31 +34,34 @@ int main(void) {
 		case 2:
 
 		}*/
-		game();
-		
-	}
 
-	pause;
+		game();
+		break;
+	case 2:
+		pause;
+		exit(0);
+		break;
+	}
 	return 0;
 }
 
 //메인 메뉴 호출
 int main_menu(void) {
 	//시작 화면 파트
-	int POS = 0;
+	int p = 0;
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
 	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.
 	mainPtr();
 	while (1) {
 		if (GetAsyncKeyState(VK_LEFT))
-			if (POS == 0) POS = 3;
-			else POS -= 1;
+			if (p == 0) p = 2;
+			else p -= 1;
 		else if (GetAsyncKeyState(VK_RIGHT))
-			if (POS == 3) POS = 0;
-			else POS += 1;
+			if (p == 2) p = 0;
+			else p += 1;
 		else if (GetAsyncKeyState(VK_RETURN))//엔터를 눌렀을 때
 			break;
-		switch (POS) {
+		switch (p) {
 		case 0:
 			SetColor(11);
 			gotoxy(x1, 20); printf("새로  하기");
@@ -83,7 +89,7 @@ int main_menu(void) {
 		Sleep(500);
 	}
 	cls;
-	return POS;
+	return p;
 }
 //기본적인 움직임 구현 툴
 void game(void) {
@@ -188,12 +194,21 @@ int menu(void) {
 	case 0:
 		break;
 	case 1:
+		cls;
+		con_txt();
+		while (1) {
+			if (GetAsyncKeyState(VK_RETURN)) {
+				break;
+			}
+		}
+		Sleep(500);
+		menu();
 		break;
 	case 2:
 		break;
 	case 3:										//메인 메뉴로 돌아가기
 		cls;
-		main_menu();
+		main();
 		break;
 	default: break;
 	}
@@ -214,3 +229,13 @@ void draw(void) {
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 }
 
+//조작키 설명
+void con_txt(void) {
+	gotoxy(20,10); printf("\u2190    left");
+	gotoxy(20,12); printf("\u2192	  right");
+	gotoxy(20,14); printf("\u2191	  up");
+	gotoxy(20,16); printf("\u2193	  down");
+	gotoxy(20,18); printf("esc	  pause");
+	gotoxy(73, 25); printf("다시 돌아가려면 enter 누르세요..");
+
+}
