@@ -35,10 +35,10 @@
     <ClCompile Include="start_screen.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="level.c">
+    <ClCompile Include="GameOver.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameOver.c">
+    <ClCompile Include="level.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

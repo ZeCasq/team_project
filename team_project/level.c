@@ -6,9 +6,9 @@ int level(void) {
 	int POS = 0;
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
 	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.
-	gotoxy(x1, 20); printf("쉬움");
-	gotoxy(x2, 20); printf("보통");
-	gotoxy(x3, 20); printf("어려움");
+	gotoxy(20, 20); printf("쉬움");
+	gotoxy(47, 20); printf("보통");
+	gotoxy(75, 20); printf("어려움");
 	while (1) {
 		if (GetAsyncKeyState(VK_LEFT))
 			if (POS == 0) POS = 3;
@@ -21,23 +21,23 @@ int level(void) {
 		switch (POS) {
 		case 0:
 			SetColor(11);
-			gotoxy(x1, 20); printf("쉬움");
+			gotoxy(20, 20); printf("쉬움");
 			SetColor(15);
-			gotoxy(x2, 20); printf("보통");
-			gotoxy(x3, 20); printf("어려움");
+			gotoxy(47, 20); printf("보통");
+			gotoxy(75, 20); printf("어려움");
 			break;
 		case 1:
-			gotoxy(x1, 20); printf("쉬움");
+			gotoxy(20, 20); printf("쉬움");
 			SetColor(11);
-			gotoxy(x2, 20); printf("보통");
+			gotoxy(47, 20); printf("보통");
 			SetColor(15);
-			gotoxy(x3, 20); printf("어려움");
+			gotoxy(75, 20); printf("어려움");
 			break;
 		case 2:
-			gotoxy(x1, 20); printf("쉬움");
-			gotoxy(x2, 20); printf("보통");
+			gotoxy(20, 20); printf("쉬움");
+			gotoxy(47, 20); printf("보통");
 			SetColor(11);
-			gotoxy(x3, 20); printf("어려움");
+			gotoxy(75, 20); printf("어려움");
 			SetColor(15);
 			break;
 

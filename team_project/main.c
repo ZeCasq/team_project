@@ -13,7 +13,7 @@ int main(void) {
 	
 	int lev;
 	int POS = main_menu();
-	Sleep(300);
+	delay;
 	
 
 	//게임 부분
@@ -65,23 +65,23 @@ int main_menu(void) {
 		switch (p) {
 		case 0:
 			SetColor(11);
-			gotoxy(x1, 20); printf("새로  하기");
+			gotoxy(20, 20); printf("새로  하기");
 			SetColor(15);
-			gotoxy(x2, 20); printf("이어  하기");
-			gotoxy(x3, 20); printf("게임  종료");
+			gotoxy(47, 20); printf("이어  하기");
+			gotoxy(75, 20); printf("게임  종료");
 			break;
 		case 1:
-			gotoxy(x1, 20); printf("새로  하기");
+			gotoxy(20, 20); printf("새로  하기");
 			SetColor(11);
-			gotoxy(x2, 20); printf("이어  하기");
+			gotoxy(47, 20); printf("이어  하기");
 			SetColor(15);
-			gotoxy(x3, 20); printf("게임  종료");
+			gotoxy(75, 20); printf("게임  종료");
 			break;
 		case 2:
-			gotoxy(x1, 20); printf("새로  하기");
-			gotoxy(x2, 20); printf("이어  하기");
+			gotoxy(20, 20); printf("새로  하기");
+			gotoxy(47, 20); printf("이어  하기");
 			SetColor(11);
-			gotoxy(x3, 20); printf("게임  종료");
+			gotoxy(75, 20); printf("게임  종료");
 			SetColor(15);
 			break;
 
@@ -96,7 +96,7 @@ int main_menu(void) {
 void game(void) {
 	draw();
 	int x = 2, y = 2, ch;
-	Sta_time = time(0); //게임 시작 시간 설정
+	Start_time = time(0); //게임 시작 시간 설정
 
 	while (1) {
 		//esc 눌러서 일시정지
@@ -104,7 +104,7 @@ void game(void) {
 			Stop_time = time(0); // 멈춘 시간 저장
 			menu();
 			cls;
-			Sta_time += (time(0) - Stop_time); //멈춘 시간은 제한시간에서 제외
+			Start_time += (time(0) - Stop_time); //멈춘 시간은 제한시간에서 제외
 			draw();
 		}
 		
@@ -112,8 +112,8 @@ void game(void) {
 		
 		gotoxy(2, 25);
 
-		printf("time : %d           ", full_time - ((time(0) - Sta_time)));
-		if (full_time - (time(0) - Sta_time) == 0) {
+		printf("time : %d           ", full_time - ((time(0) - Start_time)));
+		if (full_time - (time(0) - Start_time) == 0) {
 			cls;
 			GameOver();
 			break;
@@ -122,7 +122,7 @@ void game(void) {
 		gotoxy(x, y);
 		
 		printf("*");
-		Sleep(70);
+		Sleep(100);             //캐릭터 (*)의 움직임 속도, 값이 클수록 느려짐
 		if (GetAsyncKeyState(VK_LEFT)) {
 			if (x == 2) continue;
 			printf("\b ");
