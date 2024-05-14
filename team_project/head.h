@@ -10,7 +10,7 @@
 #define x1  20
 #define x2  47
 #define x3  75
-#define full_time 300 //게임 제한 시간
+#define full_time 5 //게임 제한 시간
 
 void SetColor(int color); // 색 설정
 void CursorView(char show); //커서 존재 유무 조정

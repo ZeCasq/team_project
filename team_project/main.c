@@ -104,14 +104,18 @@ void game(void) {
 			Stop_time = time(0); // 멈춘 시간 저장
 			menu();
 			cls;
-			Sta_time += (time(0) - Stop_time);
+			Sta_time += (time(0) - Stop_time); //멈춘 시간은 제한시간에서 제외
 			draw();
 		}
 		
 		//게임 시간 표현
+		
 		gotoxy(2, 25);
-		printf("time : %d", full_time - (time(0) - Sta_time));
+
+		printf("time : %d           ", full_time - ((time(0) - Sta_time)));
 		if (full_time - (time(0) - Sta_time) == 0) {
+			cls;
+			GameOver();
 			break;
 		}
 		//게임 툴
@@ -140,32 +144,6 @@ void game(void) {
 			y++;
 		}
 		
-		
-		/*
-		ch = _getch();
-		if (ch == 224) {
-
-			printf(" ");
-			ch = _getch();
-			switch (ch) {
-			case 72:
-[				if (y == 1) continue;
-				y--;
-				break;
-			case 80:
-				if (y == 7) continue;
-				y++;
-				break;
-			case 75:
-				if (x == 2) continue;
-				x--;
-				break;
-			case 77:
-				if (x == 100) continue;
-				x++;
-				break;
-			}
-		}*/
 	}
 }
 
