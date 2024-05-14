@@ -1,5 +1,6 @@
 #include "head.h"
 
+//레벨 설정 표기
 int level(void) {
 
 	int POS = 0;
@@ -42,7 +43,7 @@ int level(void) {
 
 		default: break;
 		}
-		Sleep(500);
+		delay;
 	}
 	return POS;
 }

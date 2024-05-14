@@ -1,5 +1,6 @@
 #include "head.h"
 
+//커서 없애는 함수
 void CursorView(char show)
 {
 	HANDLE hConsole;

@@ -38,6 +38,7 @@ int main(void) {
 		game();
 		break;
 	case 2:
+		printf("아무키나 누르시오..");
 		pause;
 		exit(0);
 		break;
@@ -86,7 +87,7 @@ int main_menu(void) {
 
 		default: break;
 		}
-		Sleep(500);
+		delay;
 	}
 	cls;
 	return p;
@@ -95,18 +96,52 @@ int main_menu(void) {
 void game(void) {
 	draw();
 	int x = 2, y = 2, ch;
-
+	Sta_time = time(0); //게임 시작 시간 설정
 
 	while (1) {
 		//esc 눌러서 일시정지
 		if (GetAsyncKeyState(VK_ESCAPE)) {
+			Stop_time = time(0); // 멈춘 시간 저장
 			menu();
 			cls;
+			Sta_time += (time(0) - Stop_time);
 			draw();
+		}
+		
+		//게임 시간 표현
+		gotoxy(2, 25);
+		printf("time : %d", full_time - (time(0) - Sta_time));
+		if (full_time - (time(0) - Sta_time) == 0) {
+			break;
 		}
 		//게임 툴
 		gotoxy(x, y);
-		printf("*\b");
+		
+		printf("*");
+		Sleep(70);
+		if (GetAsyncKeyState(VK_LEFT)) {
+			if (x == 2) continue;
+			printf("\b ");
+			x--;
+		}
+		else if (GetAsyncKeyState(VK_RIGHT)) {
+			if (x == 100) continue;
+			printf("\b ");
+			x++;
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			if (y == 1) continue;
+			printf("\b ");
+			y--;
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			if (y == 7) continue;
+			printf("\b ");
+			y++;
+		}
+		
+		
+		/*
 		ch = _getch();
 		if (ch == 224) {
 
@@ -114,7 +149,7 @@ void game(void) {
 			ch = _getch();
 			switch (ch) {
 			case 72:
-				if (y == 1) continue;
+[				if (y == 1) continue;
 				y--;
 				break;
 			case 80:
@@ -130,7 +165,7 @@ void game(void) {
 				x++;
 				break;
 			}
-		}
+		}*/
 	}
 }
 
@@ -157,21 +192,21 @@ int menu(void) {
 			SetColor(11);
 			gotoxy(20, 10); printf("재개");
 			SetColor(15);
-			gotoxy(20, 12); printf(" 조작 설명");
+			gotoxy(20, 12); printf("조작 설명");
 			gotoxy(20, 14); printf("게임 저장");
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 1:
 			gotoxy(20, 10); printf("재개");
 			SetColor(11);
-			gotoxy(20, 12); printf(" 조작 설명");
+			gotoxy(20, 12); printf("조작 설명");
 			SetColor(15);
 			gotoxy(20, 14); printf("게임 저장");
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 2:
 			gotoxy(20, 10); printf("재개");
-			gotoxy(20, 12); printf(" 조작 설명");
+			gotoxy(20, 12); printf("조작 설명");
 			SetColor(11);
 			gotoxy(20, 14); printf("게임 저장");
 			SetColor(15);
@@ -179,7 +214,7 @@ int menu(void) {
 			break;
 		case 3:
 			gotoxy(20, 10); printf("재개");
-			gotoxy(20, 12); printf(" 조작 설명");
+			gotoxy(20, 12); printf("조작 설명");
 			gotoxy(20, 14); printf("게임 저장");
 			SetColor(11);
 			gotoxy(20, 16); printf("메인 메뉴");
@@ -187,7 +222,7 @@ int menu(void) {
 			break;
 		default: break;
 		}
-		Sleep(500);
+		delay;
 	}
 	
 	switch (pos){
@@ -201,7 +236,7 @@ int menu(void) {
 				break;
 			}
 		}
-		Sleep(500);
+		delay;
 		menu();
 		break;
 	case 2:
