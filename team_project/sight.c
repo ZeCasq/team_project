@@ -1,4 +1,4 @@
-#include"head.h"
+/*#include"head.h"
 #define SIGHT 3 //시야 범위
 //Map_SIZE는 미로 크기,player X,Y는 플레이어 좌표,map[i][j]는 맵 배열 
 void displayMazeWithLimitedView() {
@@ -14,4 +14,4 @@ void displayMazeWithLimitedView() {
         }
         printf("\n");
     }
-}
+}*/

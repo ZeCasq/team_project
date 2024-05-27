@@ -4,6 +4,7 @@
 #include <stralign.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
 #define pause system("pause > nul") //프로그램 종료후 뜨는 문구 제거
 #define cls system("cls") //화면 초기화 함수 
 #define delay Sleep(500) //지연
@@ -16,9 +17,8 @@ void mainPtr(void); //시작창
 void game(void); //게임 전반적인 구성
 int level(void); //단계 창
 void GameOver(void); // 게임 오버 창
-void displayMazeWithLimitedView()
+void displayMazeWithLimitedView();
 
 //시간 제약 부분 변수
 time_t Start_time; //게임 시작 시간
 time_t Stop_time; //일시정지 시간
-time_t resta_time; //게임 일시정지 후 재시작 시간

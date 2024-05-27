@@ -1,17 +1,17 @@
 #include "head.h"
 
 
-void draw(void);
 void con_txt(void);
-void game(void);
-int main_menu(void);
 
+int main_menu(void);
+void displayLives(int*);
 
 int first = 0; //게임 실행후 플레이가 최초인지 아닌지 구분
 
 
 
 int main(void) {
+	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
 	
 	int lev;
 	int POS = main_menu();
@@ -57,15 +57,22 @@ int main(void) {
 
 //메인 메뉴 호출
 int main_menu(void) {
+	int lives = 3; //목숨
+	
+	
 	//시작 화면 파트
 	int p = 0;
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
 	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.
 	mainPtr();
+	displayLives(&lives);
+	
 	while (1) {
-		if (GetAsyncKeyState(VK_LEFT))
-			if (p == 0) p = 2;
+		if (GetAsyncKeyState(VK_LEFT)) {
+			lives-= 1;
+			
 			else p -= 1;
+		}
 		else if (GetAsyncKeyState(VK_RIGHT))
 			if (p == 2) p = 0;
 			else p += 1;
@@ -103,7 +110,7 @@ int main_menu(void) {
 }
 //기본적인 움직임 구현 툴
 void game(void) {
-	draw();
+	
 	int x = 2, y = 2, ch;
 	Start_time = time(0); //게임 시작 시간 설정
 
@@ -114,7 +121,7 @@ void game(void) {
 			menu();
 			cls;
 			Start_time += (time(0) - Stop_time); //멈춘 시간은 제한시간에서 제외
-			draw();
+			
 		}
 		
 		//게임 시간 표현
@@ -134,6 +141,7 @@ void game(void) {
 //일시정지 함수
 int menu(void) {
 	cls;
+	
 	gotoxy(20, 10); printf("재개");
 	gotoxy(20, 12); printf("조작 설명");
 	gotoxy(20, 14); printf("게임 저장");
@@ -222,4 +230,14 @@ void con_txt(void) {
 	gotoxy(20,18); printf("esc	  pause");
 	gotoxy(73, 25); printf("다시 돌아가려면 enter 누르세요..");
 
+}
+
+//목숨 출력
+void displayLives(int* life) {
+	gotoxy(1,1);
+	for (int i = 0; i < *life; i++) {
+		wprintf(L"♥ ");
+	}
+	printf("                ");
+	wprintf(L"\n");
 }
