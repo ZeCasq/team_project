@@ -7,6 +7,8 @@ void game(void);
 int main_menu(void);
 
 
+int first = 0; //게임 실행후 플레이가 최초인지 아닌지 구분
+
 
 
 int main(void) {
@@ -14,6 +16,13 @@ int main(void) {
 	int lev;
 	int POS = main_menu();
 	delay;
+	if (first == 0) {
+		con_txt();
+		gotoxy(72, 25); printf("넘어가려면 enter 누르시오        ");
+		while (!GetAsyncKeyState(VK_RETURN));
+		cls;
+		first = 1;
+	}
 	
 
 	//게임 부분
@@ -118,32 +127,6 @@ void game(void) {
 			GameOver();
 			break;
 		}
-		//게임 툴
-		gotoxy(x, y);
-		
-		printf("*");
-		Sleep(100);             //캐릭터 (*)의 움직임 속도, 값이 클수록 느려짐
-		if (GetAsyncKeyState(VK_LEFT)) {
-			if (x == 2) continue;
-			printf("\b ");
-			x--;
-		}
-		else if (GetAsyncKeyState(VK_RIGHT)) {
-			if (x == 100) continue;
-			printf("\b ");
-			x++;
-		}
-		else if (GetAsyncKeyState(VK_UP)) {
-			if (y == 1) continue;
-			printf("\b ");
-			y--;
-		}
-		else if (GetAsyncKeyState(VK_DOWN)) {
-			if (y == 7) continue;
-			printf("\b ");
-			y++;
-		}
-		
 	}
 }
 
@@ -229,18 +212,6 @@ int menu(void) {
 }
 
 
-//게임 맵 그리는 함수
-void draw(void) {
-	puts("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-	puts("■                                                                                                      ■");
-	puts("■                                                                                                      ■");
-	puts("■                                                                                                      ■");
-	puts("■                                                                                                      ■");
-	puts("■                                                                                                      ■");
-	puts("■                                                                                                      ■");
-	puts("■                                                                                                      ■");
-	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-}
 
 //조작키 설명
 void con_txt(void) {

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Downloads\map.h" />
     <ClInclude Include="head.h" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +137,7 @@
     <ClCompile Include="level.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Setcolor.c" />
+    <ClCompile Include="sight.c" />
     <ClCompile Include="start_screen.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

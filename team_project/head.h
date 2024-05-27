@@ -16,7 +16,7 @@ void mainPtr(void); //시작창
 void game(void); //게임 전반적인 구성
 int level(void); //단계 창
 void GameOver(void); // 게임 오버 창
-
+void displayMazeWithLimitedView()
 
 //시간 제약 부분 변수
 time_t Start_time; //게임 시작 시간
