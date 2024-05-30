@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 #include <malloc.h>
 
@@ -11,6 +9,7 @@
 #define RMS 25
 
 #include "map.h"
+#include "main.h"
 
 char* pMap[] = { "  ", "■" };
 int** map, mapSize, ** backupMap;
