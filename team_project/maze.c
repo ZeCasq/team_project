@@ -9,7 +9,7 @@
 #define RMS 25
 
 #include "map.h"
-#include "main.h"
+#include "head.h"
 
 char* pMap[] = { "  ", "■" };
 int** map, mapSize, ** backupMap;
