@@ -1,7 +1,7 @@
 #include "head.h"
 
 //레벨 설정 표기
-int level(void) {
+void level(void) {
 
 	int POS = 0;
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
@@ -45,5 +45,5 @@ int level(void) {
 		}
 		delay;
 	}
-	return POS;
+	lev =  POS;
 }

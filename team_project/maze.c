@@ -1,13 +1,3 @@
-#include <time.h>
-#include <malloc.h>
-
-#define START 3
-#define FINISH 4
-#define PLAYER 20
-#define WALL 1
-#define SPACE 0
-#define RMS 25
-
 #include "map.h"
 #include "head.h"
 

@@ -1,19 +1,19 @@
 #include "head.h"
 
-
 void con_txt(void);
 
 int main_menu(void);
 void displayLives(int*);
+void menu(void);
+void setting(void);
+
 
 int first = 0; //게임 실행후 플레이가 최초인지 아닌지 구분
-
-
+int X, Y;
 
 int main(void) {
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
-	
-	int lev;
+
 	int POS = main_menu();
 	delay;
 	if (first == 0) {
@@ -29,7 +29,7 @@ int main(void) {
 	switch (POS) {
 	//게임 시작 파트
 	case 0 :
-		lev = level();
+		level();
 		cls;
 		/*레벨 구분
 		switch (lev) {
@@ -43,8 +43,10 @@ int main(void) {
 		case 2:
 
 		}*/
-
 		game();
+		break;
+	case 1:
+		//이어하기
 		break;
 	case 2:
 		printf("아무키나 누르시오..");
@@ -69,8 +71,7 @@ int main_menu(void) {
 	
 	while (1) {
 		if (GetAsyncKeyState(VK_LEFT)) {
-			lives-= 1;
-			
+			if (p == 0) p = 2;
 			else p -= 1;
 		}
 		else if (GetAsyncKeyState(VK_RIGHT))
@@ -110,9 +111,10 @@ int main_menu(void) {
 }
 //기본적인 움직임 구현 툴
 void game(void) {
-	
-	int x = 2, y = 2, ch;
+	X = Y = 2;		//초기 좌표값 초기화
+	int ch;				
 	Start_time = time(0); //게임 시작 시간 설정
+	GamePlay();
 
 	while (1) {
 		//esc 눌러서 일시정지
@@ -121,15 +123,30 @@ void game(void) {
 			menu();
 			cls;
 			Start_time += (time(0) - Stop_time); //멈춘 시간은 제한시간에서 제외
-			
 		}
+		if (GetAsyncKeyState(VK_LEFT) & 0x8000) { //왼쪽
+			judgeMove(X - 1, Y);
+		}
+		if (GetAsyncKeyState(VK_RIGHT) & 0x8000) { //오른쪽
+			judgeMove(X + 1, Y);
+
+		}
+		if (GetAsyncKeyState(VK_UP) & 0x8000) { //위
+			judgeMove(X, Y + 1);
+		}
+		if (GetAsyncKeyState(VK_DOWN) & 0x8000) { //아래
+			judgeMove(X, Y - 1);
+		}
+
+		judgeFlag();			//깃발 획득 판정
+		//맵 출력
 		
 		//게임 시간 표현
 		
 		gotoxy(2, 25);
 
 		printf("time : %d           ", full_time - ((time(0) - Start_time)));
-		if (full_time - (time(0) - Start_time) == 0) {
+		if (full_time - (time(0) - Start_time) <= 0) {
 			cls;
 			GameOver();
 			break;
@@ -139,7 +156,7 @@ void game(void) {
 
 
 //일시정지 함수
-int menu(void) {
+void menu(void) {
 	cls;
 	
 	gotoxy(20, 10); printf("재개");
@@ -208,7 +225,7 @@ int menu(void) {
 		delay;
 		menu();
 		break;
-	case 2:
+	case 2:										//게임 저장
 		break;
 	case 3:										//메인 메뉴로 돌아가기
 		cls;
@@ -216,7 +233,6 @@ int menu(void) {
 		break;
 	default: break;
 	}
-	
 }
 
 
