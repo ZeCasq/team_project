@@ -7,6 +7,7 @@
 #include <time.h>
 #include <malloc.h>
 #include <locale.h>
+#include<stdbool.h>
 #define START 3
 #define FINISH 4
 #define PLAYER 20
@@ -25,15 +26,16 @@ void mainPtr(void); //시작창
 void game(void); //게임 전반적인 구성
 void level(void); //단계 창
 void GameOver(void); // 게임 오버 창
-//void displayMazeWithLimitedView();
 void GamePlay(void);
-int main(void);
 void setMap(void);
 int** RollingArray(int MapArr[RMS][RMS], int num, int block);
 int initFlag();
 int makeFlag();
 void judgeFlag(void);
 void judgeMove(int x, int y);
+int main_menu(void);
+//void displayMazeWithLimitedView();
+
 
 
 typedef struct Flag {		//깃발마다 멤버의 값을 음,양으로 줘서 계산하자 ex) life = 0, sec = -10 인경우 시간10초 감소 깃발~

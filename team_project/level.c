@@ -40,10 +40,10 @@ void level(void) {
 			gotoxy(75, 20); printf("¾î·Á¿ò");
 			SetColor(15);
 			break;
-
-		default: break;
+		default:break;
 		}
 		delay;
 	}
 	lev =  POS;
+	cls;
 }

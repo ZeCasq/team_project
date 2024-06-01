@@ -1,7 +1,7 @@
 #include "map.h"
 #include "head.h"
 
-char* pMap[] = { "  ", "■" };
+//char* pMap[2] = {"  ", "■"};
 int** map, mapSize, ** backupMap;
 int lv = 1, timer = 0;
 

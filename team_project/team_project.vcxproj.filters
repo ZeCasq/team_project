@@ -47,5 +47,11 @@
     <ClCompile Include="sight.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="inseong.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="maze.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

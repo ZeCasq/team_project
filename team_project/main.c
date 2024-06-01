@@ -2,7 +2,6 @@
 
 void con_txt(void);
 
-int main_menu(void);
 void displayLives(int*);
 void menu(void);
 void setting(void);
@@ -13,7 +12,7 @@ int X, Y;
 
 int main(void) {
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
-
+	
 	int POS = main_menu();
 	delay;
 	if (first == 0) {
@@ -30,7 +29,6 @@ int main(void) {
 	//게임 시작 파트
 	case 0 :
 		level();
-		cls;
 		/*레벨 구분
 		switch (lev) {
 		//쉬움
@@ -111,7 +109,10 @@ int main_menu(void) {
 }
 //기본적인 움직임 구현 툴
 void game(void) {
+	initFlag();//난이도에 따라 깃발 초기화가 다르면 좋을듯
+	makeFlag();//난이도에 따라 깃발 배치갯수가 다르면 좋을듯
 	X = Y = 2;		//초기 좌표값 초기화
+
 	int ch;				
 	Start_time = time(0); //게임 시작 시간 설정
 	GamePlay();
@@ -138,7 +139,6 @@ void game(void) {
 			judgeMove(X, Y - 1);
 		}
 
-		judgeFlag();			//깃발 획득 판정
 		//맵 출력
 		
 		//게임 시간 표현

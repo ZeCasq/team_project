@@ -1,30 +1,8 @@
 #include "head.h"
 
-/*
-typedef struct Flag {		//깃발마다 멤버의 값을 음,양으로 줘서 계산하자 ex) life = 0, sec = -10 인경우 시간10초 감소 깃발~
-	int life;
-	int sec;		
-	int clear;		//0 == 클리어깃발x, 1 == 클리어깃발o
-	int eyeSight;	
-}Flag;
-*/
-
-
-/*	player 구조체 임시 구현 및 전역변수로 플레이어 변수 선언.....
-typedef struct Player {
-	int x;
-	int y;
-	int life;
-	int sec;
-	int eyeSight;
-	//int clear;
-}Player;
-
-Player player;
-*/
-
-extern int x, y, mapSize;
+extern int X, Y, mapSize;
 extern** map;
+Flag Flages[9];
 
 int initFlag() {				// 2는 탈출깃발, 3: life +1, 4: life -1, 5: sec + 10, 6: sec -10, 7: eyeSight +1, 8: eyeSight -1; 
 	Flages[2].life = 0;
@@ -71,8 +49,8 @@ int makeFlag()
 
 	while (1)									//2번깃발(탈출) 배치
 	{
-		x = rand() % ? ;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
-		y = rand() % ? ;
+		x = rand() % rand() % mapSize;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
+		y = rand() % rand() % mapSize;
 		if (map[x][y] == 0)				//탈출 깃발 배치 조건은 좀더 있어도 괜찮을듯 ex) 맵의 중앙에서 50x50안에는 없어야 한다 등~~
 		{
 			//map[x][y]에 깃발 배치
@@ -85,13 +63,13 @@ int makeFlag()
 		}
 	}
 
-	for (int i = 0; i < ? ; i++)				//3번깃발 배치
+	for (int i = 0; i < 5; i++)				//3번깃발 배치
 	{
 
 		while (1)
 		{
-			x = rand() % ?;
-			y = rand() % ?;
+			x = rand() % rand() % mapSize;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
+			y = rand() % rand() % mapSize;
 			if (map[x][y] == 0)
 			{
 				//map[x][y]에 깃발 배치
@@ -105,10 +83,12 @@ int makeFlag()
 		}
 	}
 
-	for (int i = 0; i < ? ; i++)				//4번깃발 배치
+	for (int i = 0; i < 5 ; i++)				//4번깃발 배치
 	{
 		while (1)
 		{
+			x = rand() % rand() % mapSize;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
+			y = rand() % rand() % mapSize;
 			if (map[x][y] == 0)
 			{
 				//map[x][y]에 깃발 배치
@@ -122,13 +102,13 @@ int makeFlag()
 		}
 	}
 
-	for (int i = 0; i < ? ; i++)				//5번깃발 배치
+	for (int i = 0; i < 5 ; i++)				//5번깃발 배치
 	{
 
 		while (1)
 		{
-			x = rand() % ? ;
-			y = rand() % ? ;
+			x = rand() % rand() % mapSize;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
+			y = rand() % rand() % mapSize;
 			if (map[x][y] == 0)
 			{
 				//map[x][y]에 깃발 배치
@@ -142,13 +122,13 @@ int makeFlag()
 		}
 	}
 
-	for (int i = 0; i < ? ; i++)				//6번깃발 배치
+	for (int i = 0; i < 5; i++)				//6번깃발 배치
 	{
 
 		while (1)
 		{
-			x = rand() % ? ;
-			y = rand() % ? ;
+			x = rand() % rand() % mapSize;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
+			y = rand() % rand() % mapSize;
 			if (map[x][y] == 0)
 			{
 				//map[x][y]에 깃발 배치
@@ -162,13 +142,13 @@ int makeFlag()
 		}
 	}
 
-	for (int i = 0; i < ? ; i++)				//7번깃발 배치
+	for (int i = 0; i < 5; i++)				//7번깃발 배치
 	{
 
 		while (1)
 		{
-			x = rand() % ? ;
-			y = rand() % ? ;
+			x = rand() % rand() % mapSize;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
+			y = rand() % rand() % mapSize;
 			if (map[x][y] == 0)
 			{
 				//map[x][y]에 깃발 배치
@@ -182,13 +162,13 @@ int makeFlag()
 		}
 	}
 
-	for (int i = 0; i < ? ; i++)				//8번깃발 배치
+	for (int i = 0; i < 5; i++)				//8번깃발 배치
 	{
 
 		while (1)
 		{
-			x = rand() % ? ;
-			y = rand() % ? ;
+			x = rand() % rand() % mapSize;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
+			y = rand() % rand() % mapSize;
 			if (map[x][y] == 0)
 			{
 				//map[x][y]에 깃발 배치
@@ -202,6 +182,7 @@ int makeFlag()
 		}
 	}
 }
+
 
 void judgeFlag()
 {
