@@ -11,7 +11,7 @@ void level(void) {
 	gotoxy(75, 20); printf("¾î·Á¿ò");
 	while (1) {
 		if (GetAsyncKeyState(VK_LEFT))
-			if (POS == 0) POS = 3;
+			if (POS == 1) POS = 4;
 			else POS -= 1;
 		else if (GetAsyncKeyState(VK_RIGHT))
 			if (POS == 3) POS = 0;

@@ -5,6 +5,8 @@
 int** map, mapSize, ** backupMap;
 int lv = 1, timer = 0;
 
+void SetMap();
+
 void GamePlay(void) {
     SetMap();
 }

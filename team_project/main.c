@@ -2,13 +2,15 @@
 
 void con_txt(void);
 
-void displayLives(int*);
+void displayLives(void);
 void menu(void);
 void setting(void);
+void init();
 
 
 int first = 0; //게임 실행후 플레이가 최초인지 아닌지 구분
 int X, Y;
+int Life, sec, clear, eyesight;
 
 int main(void) {
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
@@ -57,7 +59,7 @@ int main(void) {
 
 //메인 메뉴 호출
 int main_menu(void) {
-	int lives = 3; //목숨
+	//int lives = 3; //목숨, 전역으로 뺀다.
 	
 	
 	//시작 화면 파트
@@ -65,7 +67,7 @@ int main_menu(void) {
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
 	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.
 	mainPtr();
-	displayLives(&lives);
+	displayLives();
 	
 	while (1) {
 		if (GetAsyncKeyState(VK_LEFT)) {
@@ -109,13 +111,13 @@ int main_menu(void) {
 }
 //기본적인 움직임 구현 툴
 void game(void) {
-	initFlag();//난이도에 따라 깃발 초기화가 다르면 좋을듯
-	makeFlag();//난이도에 따라 깃발 배치갯수가 다르면 좋을듯
-	X = Y = 2;		//초기 좌표값 초기화
+	//initFlag();//난이도에 따라 깃발 초기화가 다르면 좋을듯
+	init();
 
 	int ch;				
 	Start_time = time(0); //게임 시작 시간 설정
 	GamePlay();
+	makeFlag();//난이도에 따라 깃발 배치갯수가 다르면 좋을듯
 
 	while (1) {
 		//esc 눌러서 일시정지
@@ -125,21 +127,21 @@ void game(void) {
 			cls;
 			Start_time += (time(0) - Stop_time); //멈춘 시간은 제한시간에서 제외
 		}
-		if (GetAsyncKeyState(VK_LEFT) & 0x8000) { //왼쪽
+		if (GetAsyncKeyState(VK_LEFT) & 0x0001) { //왼쪽
 			judgeMove(X - 1, Y);
 		}
-		if (GetAsyncKeyState(VK_RIGHT) & 0x8000) { //오른쪽
+		if (GetAsyncKeyState(VK_RIGHT) & 0x0001) { //오른쪽
 			judgeMove(X + 1, Y);
 
 		}
-		if (GetAsyncKeyState(VK_UP) & 0x8000) { //위
-			judgeMove(X, Y + 1);
-		}
-		if (GetAsyncKeyState(VK_DOWN) & 0x8000) { //아래
+		if (GetAsyncKeyState(VK_UP) & 0x0001) { //위
 			judgeMove(X, Y - 1);
 		}
+		if (GetAsyncKeyState(VK_DOWN) & 0x0001) { //아래
+			judgeMove(X, Y + 1);
+		}
 
-		//맵 출력
+		printMap();
 		
 		//게임 시간 표현
 		
@@ -151,6 +153,7 @@ void game(void) {
 			GameOver();
 			break;
 		}
+		//system("cls");
 	}
 }
 
@@ -249,11 +252,40 @@ void con_txt(void) {
 }
 
 //목숨 출력
-void displayLives(int* life) {
+void displayLives() {
 	gotoxy(1,1);
-	for (int i = 0; i < *life; i++) {
+	for (int i = 0; i < Life; i++) {
 		wprintf(L"♥ ");
 	}
 	printf("                ");
 	wprintf(L"\n");
+}
+
+void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화 ㄱㄴ하게 하자
+	initFlag();
+	X = Y = 1;
+	lev = 1;
+	if (lev == 1)
+	{
+		Life = 3;
+		sec = 300;
+		clear = 0;
+		eyesight = 5;
+	}
+	else if (lev == 2)
+	{
+		Life = 3;
+		sec = 300;
+		clear = 0;
+		eyesight = 5;
+	}
+	else if (lev == 3)
+	{
+		Life = 3;
+		sec = 300;
+		clear = 0;
+		eyesight = 5;
+	}
+	
+	return;
 }

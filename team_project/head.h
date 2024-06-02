@@ -34,6 +34,7 @@ int makeFlag();
 void judgeFlag(void);
 void judgeMove(int x, int y);
 int main_menu(void);
+void printMap();
 //void displayMazeWithLimitedView();
 
 
@@ -60,4 +61,4 @@ typedef struct Player {
 time_t Start_time; //게임 시작 시간
 time_t Stop_time; //일시정지 시간
 
-int lev;
+int lev;				//1 == 쉬움, 2 ==... 3==...
