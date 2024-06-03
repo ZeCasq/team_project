@@ -134,7 +134,7 @@
     <ClCompile Include="CursorView.c" />
     <ClCompile Include="GameOver.c" />
     <ClCompile Include="gotoxy.c" />
-    <ClCompile Include="inseong.c" />
+    <ClCompile Include="flag.c" />
     <ClCompile Include="level.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="maze.c" />

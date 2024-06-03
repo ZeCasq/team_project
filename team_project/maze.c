@@ -6,6 +6,7 @@ int** map, mapSize, ** backupMap;
 int lv = 1, timer = 0;
 
 void SetMap();
+int** RollingArray(int MapArr[RMS][RMS], int num, int block);
 
 void GamePlay(void) {
     SetMap();

@@ -2,9 +2,10 @@
 
 void con_txt(void);
 
+void game(void); //게임 전반적인 구성
+int main_menu();
 void displayLives(void);
 void menu(void);
-void setting(void);
 void init();
 
 

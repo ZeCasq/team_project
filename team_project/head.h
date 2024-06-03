@@ -23,20 +23,14 @@ void SetColor(int color); // 색 설정
 void CursorView(char show); //커서 존재 유무 조정
 void gotoxy(int x, int y);  // 커서 위치 이동
 void mainPtr(void); //시작창
-void game(void); //게임 전반적인 구성
 void level(void); //단계 창
 void GameOver(void); // 게임 오버 창
 void GamePlay(void);
-void setMap(void);
-int** RollingArray(int MapArr[RMS][RMS], int num, int block);
 int initFlag();
 int makeFlag();
-void judgeFlag(void);
 void judgeMove(int x, int y);
-int main_menu(void);
 void printMap();
 //void displayMazeWithLimitedView();
-
 
 
 typedef struct Flag {		//깃발마다 멤버의 값을 음,양으로 줘서 계산하자 ex) life = 0, sec = -10 인경우 시간10초 감소 깃발~

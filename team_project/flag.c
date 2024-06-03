@@ -1,7 +1,9 @@
 #include "head.h"
 
-extern int X, Y, mapSize, eyesight;
+extern int X, Y, mapSize;
 extern int** map;
+extern int Life, sec, clear, eyesight;
+
 Flag Flages[9];
 
 int initFlag() {				// 2는 탈출깃발, 3: life +1, 4: life -1, 5: sec + 10, 6: sec -10, 7: eyeSight +1, 8: eyeSight -1; 
@@ -51,7 +53,7 @@ int makeFlag()
 	{
 		x = rand() % (mapSize - 1) + 1;				//애초에 x,y값을 벽포함 안되게 설정해도ㄱㅊ
 		y = rand() % (mapSize - 1) + 1;
-		if (map[x][y] == 0)				//탈출 깃발 배치 조건은 좀더 있어도 괜찮을듯 ex) 맵의 중앙에서 50x50안에는 없어야 한다 등~~
+		if (map[x][y] == SPACE)				//탈출 깃발 배치 조건은 좀더 있어도 괜찮을듯 ex) 맵의 중앙에서 50x50안에는 없어야 한다 등~~
 		{
 			//map[x][y]에 깃발 배치
 			map[x][y] = 2;
@@ -70,7 +72,7 @@ int makeFlag()
 		{
 			x = rand() % (mapSize - 1) + 1;
 			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == 0)
+			if (map[x][y] == SPACE)
 			{
 				//map[x][y]에 깃발 배치
 				map[x][y] = 3;
@@ -89,7 +91,7 @@ int makeFlag()
 		{
 			x = rand() % (mapSize - 1) + 1;
 			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == 0)
+			if (map[x][y] == SPACE)
 			{
 				//map[x][y]에 깃발 배치
 				map[x][y] = 4;
@@ -109,7 +111,7 @@ int makeFlag()
 		{
 			x = rand() % (mapSize - 1) + 1;
 			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == 0)
+			if (map[x][y] == SPACE)
 			{
 				//map[x][y]에 깃발 배치
 				map[x][y] = 5;
@@ -129,7 +131,7 @@ int makeFlag()
 		{
 			x = rand() % (mapSize - 1) + 1;
 			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == 0)
+			if (map[x][y] == SPACE)
 			{
 				//map[x][y]에 깃발 배치
 				map[x][y] = 6;
@@ -149,7 +151,7 @@ int makeFlag()
 		{
 			x = rand() % (mapSize - 1) + 1;
 			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == 0)
+			if (map[x][y] == SPACE)
 			{
 				//map[x][y]에 깃발 배치
 				map[x][y] = 7;
@@ -169,7 +171,7 @@ int makeFlag()
 		{
 			x = rand() % (mapSize - 1) + 1;
 			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == 0)
+			if (map[x][y] == SPACE)
 			{
 				//map[x][y]에 깃발 배치
 				map[x][y] = 8;
@@ -184,7 +186,7 @@ int makeFlag()
 }
 
 
-void judgeFlag()
+int judgeFlag()
 {
 	int temp = map[X][Y];
 
@@ -197,19 +199,25 @@ void judgeFlag()
 	{
 		if (map[X][Y] == 2)
 		{
+			clear += Flages[map[X][Y]].clear;
 			return 1;
 		}
 		else
 		{
+			Life += Flages[map[X][Y]].life;
+			sec += Flages[map[X][Y]].sec;
+			eyesight += Flages[map[X][Y]].eyeSight;
+			map[X][Y] = SPACE;
 
+			return 0;
 		}
 	}
-
 	//Flag[index].~~처럼 값 활용~
 }
 
 void judgeMove(int x, int y)
 {
+	int result;
 	if (x >= 0 && x < mapSize && y >= 0 && y < mapSize)
 	{
 		if (map[y][x] != WALL)
@@ -217,60 +225,11 @@ void judgeMove(int x, int y)
 			X = x;
 			Y = y;
 		}
-		judgeFlag();
-	}
 
-	return;
-}
-
-void printMap()
-{
-	gotoxy(0, 0);
-	int temp_x, temp_y;
-	if (X - 5 < 0)
-	{
-		temp_x = 0;
-	}
-	else if (X + 5 >= mapSize)
-	{
-		temp_x = mapSize - 11;
-	}
-	else
-	{
-		temp_x = X - 5;
-	}
-	if (Y - 5 < 0)
-	{
-		temp_y = 0;
-	}
-	else if (Y + 5 >= mapSize)
-	{
-		temp_y = mapSize - 11;
-	}
-	else
-	{
-		temp_y = Y - 5;
-	}
-	for (int i = 0; i < eyesight * 2 + 1; i++)
-	{
-		for (int j = 0; j < eyesight * 2 + 1; j++)
+		if (judgeFlag())
 		{
-			if (temp_y + i == Y && temp_x + j == X)
-			{
-				printf("◇");
-				continue;
-			}
-			else
-			{
-				if (map[temp_y + i][temp_x + j] == 1)
-					printf("■");
-				else if (map[temp_y + i][temp_x + j] == 0)
-					printf("  ");
-				else
-					printf("□");
-			}
+			//클리어 깃발 획득
 		}
-		printf("\n");
 	}
 
 	return;
