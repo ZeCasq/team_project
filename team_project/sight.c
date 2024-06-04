@@ -21,34 +21,36 @@ extern int X, Y, eyesight, mapSize, ** map;
 
 void printMap()
 {
-	gotoxy(0, 0);
 	int temp_x, temp_y;
-	if (X - 5 < 0)
+	int x = 53 - eyesight * 2;
+	int y = 15 - eyesight;
+	if (X - eyesight < 0)
 	{
 		temp_x = 0;
 	}
-	else if (X + 5 >= mapSize)
+	else if (X + eyesight >= mapSize)
 	{
-		temp_x = mapSize - 11;
+		temp_x = mapSize - (2 * eyesight + 1);
 	}
 	else
 	{
-		temp_x = X - 5;
+		temp_x = X - eyesight;
 	}
-	if (Y - 5 < 0)
+	if (Y - eyesight < 0)
 	{
 		temp_y = 0;
 	}
-	else if (Y + 5 >= mapSize)
+	else if (Y + eyesight >= mapSize)
 	{
-		temp_y = mapSize - 11;
+		temp_y = mapSize - (2 * eyesight + 1);
 	}
 	else
 	{
-		temp_y = Y - 5;
+		temp_y = Y - eyesight;
 	}
 	for (int i = 0; i < eyesight * 2 + 1; i++)
 	{
+		gotoxy(x, y);
 		for (int j = 0; j < eyesight * 2 + 1; j++)
 		{
 			if (temp_y + i == Y && temp_x + j == X)
@@ -66,7 +68,7 @@ void printMap()
 					printf("бр");
 			}
 		}
-		printf("\n");
+		y++;
 	}
 
 	return;

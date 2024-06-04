@@ -13,6 +13,8 @@ int first = 0; //게임 실행후 플레이가 최초인지 아닌지 구분
 int X, Y;
 int Life, sec, clear, eyesight;
 
+extern int** map;
+
 int main(void) {
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
 	
@@ -140,6 +142,10 @@ void game(void) {
 		}
 		if (GetAsyncKeyState(VK_DOWN) & 0x0001) { //아래
 			judgeMove(X, Y + 1);
+		}
+		if (GetAsyncKeyState(0x20) & 0x0001)		//테스트용
+		{
+			map[Y][X] = 9;
 		}
 
 		printMap();

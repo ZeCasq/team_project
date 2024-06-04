@@ -4,6 +4,10 @@ extern int X, Y, mapSize;
 extern int** map;
 extern int Life, sec, clear, eyesight;
 
+void teleport(int y, int x);
+int judgeFlag(void);
+void print_telpo(int** p, int** p2, int, int, int, int);
+
 Flag Flages[9];
 
 int initFlag() {				// 2는 탈출깃발, 3: life +1, 4: life -1, 5: sec + 10, 6: sec -10, 7: eyeSight +1, 8: eyeSight -1; 
@@ -188,31 +192,337 @@ int makeFlag()
 
 int judgeFlag()
 {
-	int temp = map[X][Y];
-
+	int x, y;
+	int temp = map[Y][X];
+	gotoxy(50, 10);
 	//	깃발은 2~8번까지밖에없다. 이조건은 이 함수에서 판단하자.
-	if (temp < 2 || temp > 8)
+	if (temp == SPACE)
 	{
 		return 0;
 	}
 	else
 	{
-		if (map[X][Y] == 2)
+		if (temp == 2)
 		{
-			clear += Flages[map[X][Y]].clear;
+			clear += Flages[temp].clear;
+			map[Y][X] = SPACE;
 			return 1;
+		}
+		else if (temp == 9)
+		{
+			map[Y][X] = SPACE;
+			while (1)
+			{
+				x = rand() % (mapSize - 1) + 1;
+				y = rand() % (mapSize - 1) + 1;
+				if (map[y][x] == SPACE)
+				{
+					teleport(y, x);
+					return 0;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			return 0;
 		}
 		else
 		{
-			Life += Flages[map[X][Y]].life;
-			sec += Flages[map[X][Y]].sec;
-			eyesight += Flages[map[X][Y]].eyeSight;
-			map[X][Y] = SPACE;
-
+			Life += Flages[temp].life;
+			sec += Flages[temp].sec;
+			eyesight += Flages[temp].eyeSight;
+			map[Y][X] = SPACE;
 			return 0;
 		}
 	}
 	//Flag[index].~~처럼 값 활용~
+}
+
+void teleport(int y, int x)
+{
+	/*
+	int** p = (int**)malloc(sizeof(int*) * (eyesight * 2 + 1));
+	int** stack = (int**)malloc(sizeof(int*) * ((eyesight * 2 + 1) * (eyesight * 2 + 1)));
+	int head = 0;
+	int temp_x, temp_y;
+	int temp_a, temp_b;
+	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
+	{
+		stack[i] = (int*)malloc(sizeof(int) * 2);
+	}
+
+	for (int i = 0; i < eyesight * 2 + 1; i++)
+	{
+		p[i] = (int*)malloc(sizeof(int) * (eyesight * 2) + 1);
+		for (int j = 0; j < eyesight * 2 + 1; j++) {
+			p[i][j] = SPACE;
+			stack[i * (eyesight * 2 + 1) + j][0] = i;
+			stack[i * (eyesight * 2 + 1) + j][1] = j;
+		}
+	}
+
+	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
+	{
+		temp_a = rand() % ((eyesight * 2 + 1) * (eyesight * 2 + 1));
+		temp_x = stack[i][0];
+		temp_y = stack[i][1];
+		stack[i][0] = stack[temp_a][0];
+		stack[i][1] = stack[temp_a][1];
+		stack[temp_a][0] = temp_x;
+		stack[temp_a][1] = temp_y;
+	}
+
+	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
+	{
+		p[stack[i][0]][stack[i][1]] = WALL;
+		printMap();
+		print_telpo(p);
+	}
+
+	head = (eyesight * 2 + 1) * (eyesight * 2 + 1);
+
+
+	/*
+	for (int i = 0; i < eyesight * 2 + 1; i++)
+	{
+		p[i] = (int*)malloc(sizeof(int) * (eyesight * 2) + 1);
+		for (int j = 0; j < eyesight * 2 + 1; j++) {
+			p[i][j] = SPACE;
+		}
+	}
+
+	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
+	{
+		while (1)
+		{
+			temp_x = rand() % (eyesight * 2 + 1);
+			temp_y = rand() % (eyesight * 2 + 1);
+			if (p[temp_x][temp_y] == SPACE)
+			{
+				stack[head][0] = temp_x;
+				stack[head][1] = temp_y;
+				head++;
+				p[temp_x][temp_y] = WALL;
+				printMap();
+				print_telpo(p);
+				Sleep(5);
+				break;
+			}
+			else
+			{
+				continue;
+			}
+		}
+	}
+	*/
+	/*
+	X = x;
+	Y = y;
+
+	Sleep(150);
+
+	while (head > 0)
+	{
+		temp_x = stack[--head][0];
+		temp_y = stack[head][1];
+		p[temp_x][temp_y] = SPACE;
+		printMap();
+		print_telpo(p);
+	}
+	*/
+
+	int** p = (int**)malloc(sizeof(int*) * (eyesight * 2 + 1));
+	int** p2 = (int**)malloc(sizeof(int*) * (eyesight * 2 + 1));
+	int past_x, past_y;
+	int past_X, past_Y;
+	
+	int temp_x, temp_y;
+	if (X - eyesight < 0)
+	{
+		temp_x = 0;
+	}
+	else if (X + eyesight >= mapSize)
+	{
+		temp_x = mapSize - (2 * eyesight + 1);
+	}
+	else
+	{
+		temp_x = X - eyesight;
+	}
+	if (Y - eyesight < 0)
+	{
+		temp_y = 0;
+	}
+	else if (Y + eyesight >= mapSize)
+	{
+		temp_y = mapSize - (2 * eyesight + 1);
+	}
+	else
+	{
+		temp_y = Y - eyesight;
+	}
+	past_x = temp_x;
+	past_y = temp_y;
+
+	past_X = X;
+	past_Y = Y;
+
+	for (int i = 0; i < eyesight * 2 + 1; i++)
+	{
+		p[i] = (int*)malloc(sizeof(int) * (eyesight * 2 + 1));
+		p2[i] = (int*)malloc(sizeof(int) * (eyesight * 2 + 1));
+		for (int j = 0; j < eyesight * 2 + 1; j++)
+		{
+			p[i][j] = map[temp_y + i][temp_x + j];
+		}
+	}
+
+	X = x;
+	Y = y;
+
+	if (X - eyesight < 0)
+	{
+		temp_x = 0;
+	}
+	else if (X + eyesight >= mapSize)
+	{
+		temp_x = mapSize - (2 * eyesight + 1);
+	}
+	else
+	{
+		temp_x = X - eyesight;
+	}
+	if (Y - eyesight < 0)
+	{
+		temp_y = 0;
+	}
+	else if (Y + eyesight >= mapSize)
+	{
+		temp_y = mapSize - (2 * eyesight + 1);
+	}
+	else
+	{
+		temp_y = Y - eyesight;
+	}
+
+	for (int i = 0; i < eyesight * 2 + 1; i++)
+	{
+		for (int j = 0; j < eyesight * 2 + 1; j++)
+		{
+			p2[i][j] = map[temp_y + i][temp_x + j];
+		}
+	}
+	print_telpo(p, p2, past_x, past_y, past_X, past_Y);
+	return;
+}
+
+void print_telpo(int** p, int** p2, int past_x, int past_y, int past_X, int past_Y)
+{
+	/*
+	int temp_x, temp_y;
+	int x = 53 - eyesight * 2;
+	int y = 15 - eyesight;
+	for (int i = 0; i < eyesight * 2 + 1; i++)
+	{
+		gotoxy(x, y);
+		for (int j = 0; j < eyesight * 2 + 1; j++)
+		{
+			if (p[i][j] == WALL)
+			{
+				printf("■");
+			}
+			else
+			{
+				gotoxy(x + 2, y);
+			}
+		}
+		y++;
+	}
+	*/
+	int temp_x, temp_y;
+	if (X - eyesight < 0)
+	{
+		temp_x = 0;
+	}
+	else if (X + eyesight >= mapSize)
+	{
+		temp_x = mapSize - (2 * eyesight + 1);
+	}
+	else
+	{
+		temp_x = X - eyesight;
+	}
+	if (Y - eyesight < 0)
+	{
+		temp_y = 0;
+	}
+	else if (Y + eyesight >= mapSize)
+	{
+		temp_y = mapSize - (2 * eyesight + 1);
+	}
+	else
+	{
+		temp_y = Y - eyesight;
+	}
+
+
+	for (int i = 0; i < eyesight * 2 + 1; i++)
+	{
+		int x = 53 - eyesight * 2;
+		int y = 15 - eyesight;
+		for (int j = 0; j < eyesight * 2 + 1; j++)
+		{
+			gotoxy(x, y);
+			for (int k = 0; k < eyesight * 2 + 1; k++)
+			{
+				if (k < i)
+				{
+					//p2출력
+					if (temp_y + j == Y && temp_x + k == X)
+					{
+						printf("◇");
+					}
+					else
+					{
+						if (p2[j][k] == WALL)
+							printf("■");
+						else if (p2[j][k] == SPACE)
+							printf("  ");
+						else
+							printf("□");
+					}
+					
+				}
+				else if (k > i)
+				{
+					//p출력
+					if (past_y + j == past_Y && past_x + k == past_X)
+					{
+						printf("◇");
+					}
+					else
+					{
+						if (p[j][k] == WALL)
+							printf("■");
+						else if (p[j][k] == SPACE)
+							printf("  ");
+						else
+							printf("□");
+					}
+				}
+				else
+				{
+					//벽만 출력!
+					printf("■");
+				}
+			}
+			y++;
+		}
+		Sleep(100);
+	}
+
+	return;
 }
 
 void judgeMove(int x, int y)
@@ -225,7 +535,6 @@ void judgeMove(int x, int y)
 			X = x;
 			Y = y;
 		}
-
 		if (judgeFlag())
 		{
 			//클리어 깃발 획득
