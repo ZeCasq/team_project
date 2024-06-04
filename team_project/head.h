@@ -8,6 +8,8 @@
 #include <malloc.h>
 #include <locale.h>
 #include<stdbool.h>
+
+
 #define START 3
 #define FINISH 4
 #define PLAYER 20

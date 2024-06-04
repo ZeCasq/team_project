@@ -138,9 +138,12 @@
     <ClCompile Include="level.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="maze.c" />
+    <ClCompile Include="over.c" />
     <ClCompile Include="Setcolor.c" />
     <ClCompile Include="sight.c" />
     <ClCompile Include="start_screen.c" />
+    <ClCompile Include="story.c" />
+    <ClCompile Include="title.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
