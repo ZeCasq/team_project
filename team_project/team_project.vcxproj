@@ -131,10 +131,12 @@
     <ClInclude Include="head.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="checkflag.c" />
     <ClCompile Include="CursorView.c" />
     <ClCompile Include="GameOver.c" />
     <ClCompile Include="gotoxy.c" />
     <ClCompile Include="flag.c" />
+    <ClCompile Include="itemtime.c" />
     <ClCompile Include="level.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="maze.c" />

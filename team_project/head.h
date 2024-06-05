@@ -42,6 +42,11 @@ typedef struct Flag {		//깃발마다 멤버의 값을 음,양으로 줘서 계산하자 ex) life =
 	int eyeSight;
 }Flag;
 
+struct condition {
+	int sight_p;
+	int sight_m;
+
+};
 /*
 typedef struct Player {
 	int x;

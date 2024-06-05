@@ -16,6 +16,7 @@ int Life, sec, clear, eyesight;
 extern int** map;
 
 int main(void) {
+	struct condition player = { 0,0 };
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
 	
 	int POS = main_menu();
@@ -25,6 +26,7 @@ int main(void) {
 		gotoxy(72, 25); printf("넘어가려면 enter 누르시오        ");
 		while (!GetAsyncKeyState(VK_RETURN));
 		cls;
+		Sleep(300);
 		first = 1;
 	}
 	
@@ -34,18 +36,6 @@ int main(void) {
 	//게임 시작 파트
 	case 0 :
 		level();
-		/*레벨 구분
-		switch (lev) {
-		//쉬움
-		case 0 :
-
-		//보통
-		case 1:
-
-		//어려움
-		case 2:
-
-		}*/
 		game();
 		break;
 	case 1:
