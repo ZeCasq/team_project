@@ -145,7 +145,7 @@ void game(void) {
 		}
 		if (GetAsyncKeyState(0x20) & 0x0001)		//테스트용
 		{
-			map[Y][X] = 9;
+			map[Y][X] = 10;
 		}
 
 		printMap();
@@ -270,7 +270,7 @@ void displayLives() {
 
 void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화 ㄱㄴ하게 하자
 	initFlag();
-	X = Y = 1;
+	X = Y = 2;
 	lev = 1;
 	if (lev == 1)
 	{

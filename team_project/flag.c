@@ -1,10 +1,12 @@
 #include "head.h"
+#define Bomb_Range 2				// 폭탄 범위(플레이어 기준으로 좌우상하 +-)
 
 extern int X, Y, mapSize;
 extern int** map;
 extern int Life, sec, clear, eyesight;
 
 void teleport(int y, int x);
+void bomb();
 int judgeFlag(void);
 void print_telpo(int** p, int** p2, int, int, int, int);
 
@@ -187,6 +189,46 @@ int makeFlag()
 			}
 		}
 	}
+
+	for (int i = 0; i < 5; i++)				//9번깃발 배치(telpo)
+	{
+
+		while (1)
+		{
+			x = rand() % (mapSize - 1) + 1;
+			y = rand() % (mapSize - 1) + 1;
+			if (map[x][y] == SPACE)
+			{
+				//map[x][y]에 깃발 배치
+				map[x][y] = 9;
+				break;
+			}
+			else
+			{
+				continue;
+			}
+		}
+	}
+
+	for (int i = 0; i < 5; i++)				//10번깃발 배치(bomb)
+	{
+
+		while (1)
+		{
+			x = rand() % (mapSize - 1) + 1;
+			y = rand() % (mapSize - 1) + 1;
+			if (map[x][y] == SPACE)
+			{
+				//map[x][y]에 깃발 배치
+				map[x][y] = 10;
+				break;
+			}
+			else
+			{
+				continue;
+			}
+		}
+	}
 }
 
 
@@ -195,7 +237,7 @@ int judgeFlag()
 	int x, y;
 	int temp = map[Y][X];
 	gotoxy(50, 10);
-	//	깃발은 2~8번까지밖에없다. 이조건은 이 함수에서 판단하자.
+	//	깃발은 2~10번까지밖에없다. 이조건은 이 함수에서 판단하자.
 	if (temp == SPACE)
 	{
 		return 0;
@@ -208,7 +250,7 @@ int judgeFlag()
 			map[Y][X] = SPACE;
 			return 1;
 		}
-		else if (temp == 9)
+		else if (temp == 9)						//텔포
 		{
 			map[Y][X] = SPACE;
 			while (1)
@@ -227,6 +269,11 @@ int judgeFlag()
 			}
 			return 0;
 		}
+		else if (temp == 10)				//bomb
+		{
+			bomb();
+			map[Y][X] = SPACE;
+		}
 		else
 		{
 			Life += Flages[temp].life;
@@ -237,6 +284,45 @@ int judgeFlag()
 		}
 	}
 	//Flag[index].~~처럼 값 활용~
+}
+
+void bomb()
+{
+	int temp_x, temp_y;
+	if (X - Bomb_Range < 1)
+	{
+		temp_x = 1;
+	}
+	else if (X + Bomb_Range >= (mapSize - 1))
+	{
+		temp_x = (mapSize - 1) - (2 * Bomb_Range + 1);
+	}
+	else
+	{
+		temp_x = X - Bomb_Range;
+	}
+	if (Y - Bomb_Range < 1)
+	{
+		temp_y = 1;
+	}
+	else if (Y + Bomb_Range >= (mapSize - 1))
+	{
+		temp_y = (mapSize - 1) - (2 * Bomb_Range +  1);
+	}
+	else
+	{
+		temp_y = Y - Bomb_Range;
+	}
+
+	for (int i = 0; i < Bomb_Range * 2 + 1; i++)
+	{
+		for (int j = 0; j < Bomb_Range * 2 + 1; j++)
+		{
+			map[temp_y + i][temp_x + j] = SPACE;
+		}
+	}
+
+	return 0;
 }
 
 void teleport(int y, int x)
