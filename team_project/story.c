@@ -14,12 +14,12 @@ void story(void)
     };
 
     int stop = 0;  // 종료 플래그
-    gotoxy(50, 25);
+    gotoxy(73, 25);
     printf("스킵하려면 s를 누르시오.");
     gotoxy(0, 0);
     // 각 문자열의 문자를 하나씩 출력
     for (int i = 0; i < 6 && !stop; i++) {
-        for (int j = 0; string[i][j] != '\0'; j++) {
+        for (int j = 0; string[i][j] != '\0' && !stop; j++) {
             printf("%c", string[i][j]);
             Sleep(70);  // 70밀리초 대기
             
@@ -32,11 +32,27 @@ void story(void)
                 }
             }
         }
-        printf("\n");
-        Sleep(1000);  // 문자열 간 1초 대기
-    }
+        cls;
+        for (int i = 0; i < 6; i++) {
+            printf("%s\n", string[i]);
+        }
 
-    system("cls");
+        gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
+        while (!GetAsyncKeyState(VK_RETURN));
+        
+        printf("\n");
+        delay;
+    }
+    cls;
+    
+    Sleep(300);
+    
+    explain();
+    return 0;
+}
+
+void explain(void) {
+    
     printf("===========================================================\n");
     printf("게임 설명:\n");
     printf("미로로 이루어진 유적지를 탈출하시오\n");
@@ -62,5 +78,6 @@ void story(void)
     SetColor(12);
     printf("환각효과 : 방향키 변환\n");
     printf("===========================================================\n");
-    return 0;
+    SetColor(15);
+    gotoxy(73, 25); printf("다시 돌아가려면 enter 누르세요..");
 }

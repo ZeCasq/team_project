@@ -34,6 +34,7 @@ void judgeMove(int x, int y);
 void printMap();
 void pause_item(time_t* );
 void itemtime(time_t* );
+void explain(void);
 //void displayMazeWithLimitedView();
 
 

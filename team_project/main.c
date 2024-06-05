@@ -4,7 +4,6 @@ void con_txt(void);
 
 void game(void); //게임 전반적인 구성
 int main_menu();
-void displayLives(void);
 void menu(void);
 void init();
 
@@ -24,8 +23,13 @@ int main(void) {
 	delay;
 	if (first == 0) {
 		story();
+		
+		gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
+		while (!GetAsyncKeyState(VK_RETURN));
+		cls;
+		Sleep(300);
 		con_txt();
-		gotoxy(72, 25); printf("넘어가려면 enter 누르시오        ");
+		gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
 		while (!GetAsyncKeyState(VK_RETURN));
 		cls;
 		Sleep(300);
@@ -62,9 +66,9 @@ int main_menu(void) {
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
 	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.
 	mainPtr();
-	displayLives();
 	
 	while (1) {
+		
 		if (GetAsyncKeyState(VK_LEFT)) {
 			if (p == 0) p = 2;
 			else p -= 1;
@@ -181,7 +185,7 @@ void menu(void) {
 	cls;
 	
 	gotoxy(20, 10); printf("재개");
-	gotoxy(20, 12); printf("조작 설명");
+	gotoxy(20, 12); printf("게임 설명");
 	gotoxy(20, 14); printf("게임 저장");
 	gotoxy(20, 16); printf("메인 메뉴");
 	int pos = 0;
@@ -199,21 +203,21 @@ void menu(void) {
 			SetColor(11);
 			gotoxy(20, 10); printf("재개");
 			SetColor(15);
-			gotoxy(20, 12); printf("조작 설명");
+			gotoxy(20, 12); printf("게임 설명");
 			gotoxy(20, 14); printf("게임 저장");
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 1:
 			gotoxy(20, 10); printf("재개");
 			SetColor(11);
-			gotoxy(20, 12); printf("조작 설명");
+			gotoxy(20, 12); printf("게임 설명");
 			SetColor(15);
 			gotoxy(20, 14); printf("게임 저장");
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 2:
 			gotoxy(20, 10); printf("재개");
-			gotoxy(20, 12); printf("조작 설명");
+			gotoxy(20, 12); printf("게임 설명");
 			SetColor(11);
 			gotoxy(20, 14); printf("게임 저장");
 			SetColor(15);
@@ -221,7 +225,7 @@ void menu(void) {
 			break;
 		case 3:
 			gotoxy(20, 10); printf("재개");
-			gotoxy(20, 12); printf("조작 설명");
+			gotoxy(20, 12); printf("게임 설명");
 			gotoxy(20, 14); printf("게임 저장");
 			SetColor(11);
 			gotoxy(20, 16); printf("메인 메뉴");
@@ -238,10 +242,25 @@ void menu(void) {
 	case 1:
 		cls;
 		con_txt();
+		int k = 0;
 		while (1) {
-			if (GetAsyncKeyState(VK_RETURN)) {
-				break;
+			if(GetAsyncKeyState(VK_RIGHT)|| GetAsyncKeyState(VK_LEFT) ){
+				if (k == 0) {
+					cls;
+					explain();
+					k = 1;
+					Sleep(300);
+					continue;
+				}
+				if (k == 1) {
+					cls;
+					con_txt();
+					k = 0;
+					Sleep(300);
+				}
 			}
+			if (GetAsyncKeyState(VK_RETURN))
+				break;
 		}
 		delay;
 		menu();
@@ -269,15 +288,8 @@ void con_txt(void) {
 
 }
 
-//목숨 출력
-void displayLives() {
-	gotoxy(1,1);
-	for (int i = 0; i < Life; i++) {
-		wprintf(L"♥ ");
-	}
-	printf("                ");
-	wprintf(L"\n");
-}
+
+
 
 void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화 ㄱㄴ하게 하자
 	initFlag();
@@ -285,21 +297,21 @@ void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화
 	lev = 1;
 	if (lev == 1)
 	{
-		Life = 3;
+		
 		sec = 300;
 		clear = 0;
-		eyesight = 5;
+		eyesight = 8;
 	}
 	else if (lev == 2)
 	{
-		Life = 3;
+		
 		sec = 300;
 		clear = 0;
 		eyesight = 5;
 	}
 	else if (lev == 3)
 	{
-		Life = 3;
+		
 		sec = 300;
 		clear = 0;
 		eyesight = 5;
