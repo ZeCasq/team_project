@@ -1,6 +1,7 @@
 #include "head.h"
 
 void title(void) {
+
     printf("   ___           _ _             \n");
     printf("  |_ _|_ __   __| (_) __ _ _ __   __ _ \n");
     printf("   | || '_ \\ / _` | |/ _` | '_ \\ / _` |\n");

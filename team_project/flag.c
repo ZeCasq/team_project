@@ -3,12 +3,14 @@
 extern int X, Y, mapSize;
 extern int** map;
 extern int Life, sec, clear, eyesight;
+extern struct condition playeR;
 
 void teleport(int y, int x);
 int judgeFlag(void);
 void print_telpo(int** p, int** p2, int, int, int, int);
-
+int flag_time = 0 ;
 Flag Flages[9];
+
 
 int initFlag() {				// 2´Â Å»Ãâ±ê¹ß, 3: life +1, 4: life -1, 5: sec + 10, 6: sec -10, 7: eyeSight +1, 8: eyeSight -1; 
 	Flages[2].life = 0;
@@ -231,7 +233,10 @@ int judgeFlag()
 		{
 			Life += Flages[temp].life;
 			sec += Flages[temp].sec;
-			eyesight += Flages[temp].eyeSight;
+			itemtime(&playeR.sight_p);
+			if (flag_time == 0){
+			flag_time = time(0);
+			}
 			map[Y][X] = SPACE;
 			return 0;
 		}

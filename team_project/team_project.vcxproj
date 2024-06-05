@@ -131,7 +131,6 @@
     <ClInclude Include="head.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="checkflag.c" />
     <ClCompile Include="CursorView.c" />
     <ClCompile Include="GameOver.c" />
     <ClCompile Include="gotoxy.c" />

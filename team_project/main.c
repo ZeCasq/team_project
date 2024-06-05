@@ -13,15 +13,17 @@ int first = 0; //게임 실행후 플레이가 최초인지 아닌지 구분
 int X, Y;
 int Life, sec, clear, eyesight;
 
-extern int** map;
 
+extern int** map,flag_time;
+struct condition playeR = { 0,0 };
 int main(void) {
-	struct condition player = { 0,0 };
+	
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
 	
 	int POS = main_menu();
 	delay;
 	if (first == 0) {
+		story();
 		con_txt();
 		gotoxy(72, 25); printf("넘어가려면 enter 누르시오        ");
 		while (!GetAsyncKeyState(VK_RETURN));
@@ -104,6 +106,7 @@ int main_menu(void) {
 }
 //기본적인 움직임 구현 툴
 void game(void) {
+	int count = 0;
 	//initFlag();//난이도에 따라 깃발 초기화가 다르면 좋을듯
 	init();
 
@@ -113,12 +116,30 @@ void game(void) {
 	makeFlag();//난이도에 따라 깃발 배치갯수가 다르면 좋을듯
 
 	while (1) {
+		if (time(0) - flag_time < playeR.sight_p) {
+			if (count == 0)eyesight += 3;
+			count = 2;
+			gotoxy(22, 28);
+			printf("시야 버프: %3d", playeR.sight_p -time(0) + flag_time );
+		}
+		else if(count == 2) {
+				cls;
+				flag_time = 0;
+				eyesight -= 3;
+				playeR.sight_p = 0;
+				count = 0;
+		}
+
+		
+		
 		//esc 눌러서 일시정지
 		if (GetAsyncKeyState(VK_ESCAPE)) {
 			Stop_time = time(0); // 멈춘 시간 저장
 			menu();
 			cls;
 			Start_time += (time(0) - Stop_time); //멈춘 시간은 제한시간에서 제외
+			pause_item(&playeR.sight_p);
+			pause_item(&playeR.sight_m);
 		}
 		if (GetAsyncKeyState(VK_LEFT) & 0x0001) { //왼쪽
 			judgeMove(X - 1, Y);
@@ -135,7 +156,7 @@ void game(void) {
 		}
 		if (GetAsyncKeyState(0x20) & 0x0001)		//테스트용
 		{
-			map[Y][X] = 9;
+			map[Y][X] = 5;
 		}
 
 		printMap();

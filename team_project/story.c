@@ -14,12 +14,15 @@ void story(void)
     };
 
     int stop = 0;  // 종료 플래그
-
+    gotoxy(50, 25);
+    printf("스킵하려면 s를 누르시오.");
+    gotoxy(0, 0);
     // 각 문자열의 문자를 하나씩 출력
     for (int i = 0; i < 6 && !stop; i++) {
         for (int j = 0; string[i][j] != '\0'; j++) {
             printf("%c", string[i][j]);
             Sleep(70);  // 70밀리초 대기
+            
 
             // 키보드 입력 체크
             if (_kbhit()) {

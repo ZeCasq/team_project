@@ -1,11 +1,11 @@
 #include "head.h"
-#define Item 30
+#define Item_time 10
 
 void itemtime(time_t* t) {
-	*t += Item;
+	*t += Item_time;
 }
 
 void pause_item(time_t* t) {
 	if (*t > 0)
-	*t += time(0) - Stop_time;
+	*t += time(0) - Stop_time ;
 }

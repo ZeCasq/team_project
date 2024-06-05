@@ -4,7 +4,7 @@
 #include <stralign.h>
 #include <stdlib.h>
 #include <time.h>
-#include <time.h>
+
 #include <malloc.h>
 #include <locale.h>
 #include<stdbool.h>
@@ -32,6 +32,8 @@ int initFlag();
 int makeFlag();
 void judgeMove(int x, int y);
 void printMap();
+void pause_item(time_t* );
+void itemtime(time_t* );
 //void displayMazeWithLimitedView();
 
 
@@ -43,10 +45,11 @@ typedef struct Flag {		//깃발마다 멤버의 값을 음,양으로 줘서 계산하자 ex) life =
 }Flag;
 
 struct condition {
-	int sight_p;
-	int sight_m;
-
+	time_t sight_p;
+	time_t sight_m;
 };
+
+
 /*
 typedef struct Player {
 	int x;
