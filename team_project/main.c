@@ -118,7 +118,8 @@ void game(void) {
 	Start_time = time(0); //게임 시작 시간 설정
 	GamePlay();
 	makeFlag();//난이도에 따라 깃발 배치갯수가 다르면 좋을듯
-
+	gotoxy(0, 0);
+	printf("level: %d", lev);
 	while (1) {
 		if (time(0) - flag_time < playeR.sight_p) {
 			if (count == 0)eyesight += 3;
@@ -168,15 +169,12 @@ void game(void) {
 		}
 		if (GetAsyncKeyState(0x20) & 0x0001)		//테스트용
 		{
-<<<<<<< HEAD
-=======
+
 			map[Y][X] = 10;
 		}
->>>>>>> e22828a7d78860f3ef1ebc24dabbec10f22d6de3
 
-			map[Y][X] = 9;
 
-		}
+			
 		
 		printMap();
 		gotoxy(2, 26);
@@ -310,7 +308,7 @@ void con_txt(void) {
 void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화 ㄱㄴ하게 하자
 	initFlag();
 	X = Y = 2;
-	lev = 1;
+	
 	if (lev == 1)
 	{
 		
