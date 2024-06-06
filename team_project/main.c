@@ -68,10 +68,7 @@ int main_menu(void) {
 	mainPtr();
 	
 	while (1) {
-		title1();
-		Sleep(500);
-		blank();
-		Sleep(300);
+		
 		if (GetAsyncKeyState(VK_LEFT)) {
 			if (p == 0) p = 2;
 			else p -= 1;
