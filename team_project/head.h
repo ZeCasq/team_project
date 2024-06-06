@@ -69,3 +69,4 @@ time_t Start_time; //게임 시작 시간
 time_t Stop_time; //일시정지 시간
 
 int lev;				//1 == 쉬움, 2 ==... 3==...
+int bomb_num;

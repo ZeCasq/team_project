@@ -277,7 +277,7 @@ int judgeFlag()
 		}
 		else if (temp == 10)				//bomb
 		{
-			bomb();
+			bomb_num += 1;
 			map[Y][X] = SPACE;
 		}
 		else
@@ -328,6 +328,8 @@ void bomb()
 	{
 		for (int j = 0; j < Bomb_Range * 2 + 1; j++)
 		{
+			if (map[temp_y + i][temp_x + j] == PAST_PATH)
+				continue;
 			map[temp_y + i][temp_x + j] = SPACE;
 		}
 	}

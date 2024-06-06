@@ -16,7 +16,7 @@ int Life, sec, clear, eyesight;
 extern int** map,flag_time;
 struct condition playeR = { 0,0 };
 int main(void) {
-	
+	bomb_num = 3;
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
 	
 	int POS = main_menu();
@@ -167,10 +167,12 @@ void game(void) {
 			Past_path(map, X, Y);
 			judgeMove(X, Y + 1);
 		}
-		if (GetAsyncKeyState(0x20) & 0x0001)		//테스트용
+		if (GetAsyncKeyState(0x20) & 0x0001)		//폭탄 까기
 		{
-
-			map[Y][X] = 10;
+			if (bomb_num > 0) {
+				bomb_num -= 1;
+				bomb();
+			}
 		}
 
 
@@ -179,6 +181,8 @@ void game(void) {
 		printMap();
 		gotoxy(2, 26);
 		printf("X: %d Y: %d", X, Y);
+		gotoxy(2, 24);
+		printf("폭탄 수: %d",bomb_num);
 		//게임 시간 표현
 		
 		gotoxy(2, 25);
