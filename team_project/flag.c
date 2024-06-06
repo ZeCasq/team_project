@@ -11,6 +11,8 @@ void bomb();
 int judgeFlag(void);
 void print_telpo(int** p, int** p2, int, int, int, int);
 int flag_time = 0 ;
+int flag_time2 = 0;
+int flag_time3 = 0;
 Flag Flages[9];
 
 
