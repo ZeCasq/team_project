@@ -146,21 +146,31 @@ void game(void) {
 			pause_item(&playeR.sight_m);
 		}
 		if (GetAsyncKeyState(VK_LEFT) & 0x0001) { //왼쪽
+			if(lev == 1)
+			Past_path(map, X, Y);
 			judgeMove(X - 1, Y);
 		}
 		if (GetAsyncKeyState(VK_RIGHT) & 0x0001) { //오른쪽
+			if (lev == 1)
+			Past_path(map, X, Y);
 			judgeMove(X + 1, Y);
 
 		}
 		if (GetAsyncKeyState(VK_UP) & 0x0001) { //위
+			if (lev == 1)
+			Past_path(map, X, Y);
 			judgeMove(X, Y - 1);
 		}
 		if (GetAsyncKeyState(VK_DOWN) & 0x0001) { //아래
+			if (lev == 1)
+			Past_path(map, X, Y);
 			judgeMove(X, Y + 1);
 		}
 		if (GetAsyncKeyState(0x20) & 0x0001)		//테스트용
 		{
-			map[Y][X] = 5;
+
+			map[Y][X] = 9;
+
 		}
 		
 		printMap();
@@ -294,7 +304,7 @@ void con_txt(void) {
 
 void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화 ㄱㄴ하게 하자
 	initFlag();
-	X = Y = 1;
+	X = Y = 2;
 	lev = 1;
 	if (lev == 1)
 	{

@@ -234,6 +234,7 @@ int judgeFlag()
 		}
 		else
 		{
+			
 			Life += Flages[temp].life;
 			sec += Flages[temp].sec;
 			itemtime(&playeR.sight_p);
@@ -542,9 +543,10 @@ void judgeMove(int x, int y)
 	int result;
 	if (x >= 0 && x < mapSize && y >= 0 && y < mapSize)
 	{
+		
 		if (map[y][x] != WALL)
 		{
-			Past_path(map, x, y);
+			
 			X = x;
 			Y = y;
 		}

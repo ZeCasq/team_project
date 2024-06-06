@@ -64,8 +64,11 @@ void printMap()
 					printf("бс");
 				else if (map[temp_y + i][temp_x + j] == SPACE)
 					printf("  ");
-				else if (map[temp_y + i][temp_x + j] == PAST_PATH)
+				else if (map[temp_y + i][temp_x + j] == PAST_PATH) {
+					SetColor(9);
 					printf("в┴");
+					SetColor(15);
+				}
 				else
 					printf("бр");
 			}
