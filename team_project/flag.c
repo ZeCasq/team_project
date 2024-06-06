@@ -202,6 +202,9 @@ int judgeFlag()
 	{
 		return 0;
 	}
+	else if (temp == PAST_PATH) {
+		return 0;
+	}
 	else
 	{
 		if (temp == 2)
@@ -494,6 +497,8 @@ void print_telpo(int** p, int** p2, int past_x, int past_y, int past_X, int past
 							printf("бс");
 						else if (p2[j][k] == SPACE)
 							printf("  ");
+						else if (p2[j][k] == PAST_PATH)
+							printf("в┴");
 						else
 							printf("бр");
 					}
@@ -512,6 +517,8 @@ void print_telpo(int** p, int** p2, int past_x, int past_y, int past_X, int past
 							printf("бс");
 						else if (p[j][k] == SPACE)
 							printf("  ");
+						else if (p[j][k] == PAST_PATH)
+							printf("в┴");
 						else
 							printf("бр");
 					}
@@ -537,6 +544,7 @@ void judgeMove(int x, int y)
 	{
 		if (map[y][x] != WALL)
 		{
+			Past_path(map, x, y);
 			X = x;
 			Y = y;
 		}

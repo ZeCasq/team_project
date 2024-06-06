@@ -140,6 +140,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="maze.c" />
     <ClCompile Include="over.c" />
+    <ClCompile Include="Past.c" />
     <ClCompile Include="Setcolor.c" />
     <ClCompile Include="sight.c" />
     <ClCompile Include="start_screen.c" />

@@ -13,6 +13,7 @@
 #define START 3
 #define FINISH 4
 #define PLAYER 20
+#define PAST_PATH 30
 #define WALL 1
 #define SPACE 0
 #define RMS 25
@@ -35,6 +36,7 @@ void printMap();
 void pause_item(time_t* );
 void itemtime(time_t* );
 void explain(void);
+void Past_path(int** n, int X, int Y);
 //void displayMazeWithLimitedView();
 
 

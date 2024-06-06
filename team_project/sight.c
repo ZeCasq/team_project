@@ -64,6 +64,8 @@ void printMap()
 					printf("бс");
 				else if (map[temp_y + i][temp_x + j] == SPACE)
 					printf("  ");
+				else if (map[temp_y + i][temp_x + j] == PAST_PATH)
+					printf("в┴");
 				else
 					printf("бр");
 			}

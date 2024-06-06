@@ -29,20 +29,23 @@ void story(void)
                 char ch = _getch();  // 입력된 키를 읽음
                 if (ch == 's') {
                     stop = 1;  // 종료 플래그 설정
+                    
                 }
             }
+            
         }
-        cls;
-        for (int i = 0; i < 6; i++) {
-            printf("%s\n", string[i]);
-        }
-
-        gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
-        while (!GetAsyncKeyState(VK_RETURN));
-        
         printf("\n");
-        delay;
     }
+    cls;
+    for (int i = 0; i < 6; i++) {
+        printf("%s\n", string[i]);
+    }
+
+    gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
+    while (!GetAsyncKeyState(VK_RETURN));
+
+    
+    delay;
     cls;
     
     Sleep(300);

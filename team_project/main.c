@@ -162,9 +162,10 @@ void game(void) {
 		{
 			map[Y][X] = 5;
 		}
-
-		printMap();
 		
+		printMap();
+		gotoxy(2, 26);
+		printf("X: %d Y: %d", X, Y);
 		//게임 시간 표현
 		
 		gotoxy(2, 25);
