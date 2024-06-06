@@ -64,11 +64,14 @@ int main_menu(void) {
 	//시작 화면 파트
 	int p = 0;
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
-	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.
+	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.	 
 	mainPtr();
 	
 	while (1) {
-		
+		title1();
+		Sleep(300);
+		blank();
+		Sleep(100);
 		if (GetAsyncKeyState(VK_LEFT)) {
 			if (p == 0) p = 2;
 			else p -= 1;
