@@ -256,6 +256,9 @@ int judgeFlag()
 		{
 			clear += Flages[temp].clear;
 			map[Y][X] = SPACE;
+			cls;
+			printf("½Â¸®");
+			Sleep(100000);
 			return 1;
 		}
 		else if (temp == 9)						//ÅÚÆ÷
