@@ -168,6 +168,11 @@ void game(void) {
 		}
 		if (GetAsyncKeyState(0x20) & 0x0001)		//테스트용
 		{
+<<<<<<< HEAD
+=======
+			map[Y][X] = 10;
+		}
+>>>>>>> e22828a7d78860f3ef1ebc24dabbec10f22d6de3
 
 			map[Y][X] = 9;
 
