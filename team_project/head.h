@@ -20,7 +20,8 @@
 #define pause system("pause > nul") //프로그램 종료후 뜨는 문구 제거
 #define cls system("cls") //화면 초기화 함수 
 #define delay Sleep(500) //지연
-#define full_time 3 //게임 제한 시간
+#define full_time 300 //게임 제한 시간
+
 void claer(void);
 void SetColor(int color); // 색 설정
 void CursorView(char show); //커서 존재 유무 조정

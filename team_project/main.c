@@ -125,6 +125,7 @@ void game(void) {
 	int count = 0;
 	//initFlag();//난이도에 따라 깃발 초기화가 다르면 좋을듯
 	init();
+	time_t b = 0;
 	mciSendString(TEXT("open \"maze.mp3\" type mpegvideo alias mp3_1"), NULL, 0, NULL);
 	mciSendString(TEXT("play mp3_1"), NULL, 0, NULL);
 	int ch;				
@@ -136,6 +137,12 @@ void game(void) {
 	while (1) {
 		if (time(0) - a > 1) {
 			mciSendString(TEXT("close mp3_6"), NULL, 0, NULL);
+		}
+		if (time(0) - b> 150 ) {
+			mciSendString(TEXT("close mp3_1"), NULL, 0, NULL);
+			mciSendString(TEXT("open \"maze.mp3\" type mpegvideo alias mp3_1"), NULL, 0, NULL);
+			mciSendString(TEXT("play mp3_1"), NULL, 0, NULL);
+			b = time(0);
 		}
 		if (time(0) - flag_time < playeR.sight_p) {
 			if (count == 0) {
@@ -256,7 +263,7 @@ void game(void) {
 				bomb_num -= 1;
 				bomb();
 			}
-			map[Y][X] = 9;
+			map[Y][X] = 2;
 		}
 
 

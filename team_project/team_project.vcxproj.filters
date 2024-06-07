@@ -73,9 +73,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="maze.mp3">
-      <Filter>리소스 파일</Filter>
-    </Media>
     <Media Include="button_s.mp3">
       <Filter>리소스 파일</Filter>
     </Media>
@@ -89,6 +86,9 @@
       <Filter>리소스 파일</Filter>
     </Media>
     <Media Include="flag_s.mp3">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="maze.mp3">
       <Filter>리소스 파일</Filter>
     </Media>
   </ItemGroup>
