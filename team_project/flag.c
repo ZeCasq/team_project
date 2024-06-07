@@ -1,5 +1,5 @@
 #include "head.h"
-#define Bomb_Range 2				// 폭탄 범위(플레이어 기준으로 좌우상하 +-)
+#define Bomb_Range 4				// 폭탄 범위(플레이어 기준으로 좌우상하 +-)
 
 extern int X, Y, mapSize;
 extern int** map;
@@ -75,44 +75,44 @@ int makeFlag()
 		}
 	}
 
-	for (int i = 0; i < 5; i++)				//3번깃발 배치
-	{
+	//for (int i = 0; i < 5; i++)				//3번깃발 배치
+	//{
 
-		while (1)
-		{
-			x = rand() % (mapSize - 1) + 1;
-			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == SPACE)
-			{
-				//map[x][y]에 깃발 배치
-				map[x][y] = 3;
-				break;
-			}
-			else
-			{
-				continue;
-			}
-		}
-	}
+	//	while (1)
+	//	{
+	//		x = rand() % (mapSize - 1) + 1;
+	//		y = rand() % (mapSize - 1) + 1;
+	//		if (map[x][y] == SPACE)
+	//		{
+	//			//map[x][y]에 깃발 배치
+	//			map[x][y] = 3;
+	//			break;
+	//		}
+	//		else
+	//		{
+	//			continue;
+	//		}
+	//	}
+	//}
 
-	for (int i = 0; i < 5; i++)				//4번깃발 배치
-	{
-		while (1)
-		{
-			x = rand() % (mapSize - 1) + 1;
-			y = rand() % (mapSize - 1) + 1;
-			if (map[x][y] == SPACE)
-			{
-				//map[x][y]에 깃발 배치
-				map[x][y] = 4;
-				break;
-			}
-			else
-			{
-				continue;
-			}
-		}
-	}
+	//for (int i = 0; i < 5; i++)				//4번깃발 배치
+	//{
+	//	while (1)
+	//	{
+	//		x = rand() % (mapSize - 1) + 1;
+	//		y = rand() % (mapSize - 1) + 1;
+	//		if (map[x][y] == SPACE)
+	//		{
+	//			//map[x][y]에 깃발 배치
+	//			map[x][y] = 4;
+	//			break;
+	//		}
+	//		else
+	//		{
+	//			continue;
+	//		}
+	//	}
+	//}
 
 	for (int i = 0; i < 5; i++)				//5번깃발 배치
 	{
@@ -288,7 +288,7 @@ int judgeFlag()
 		else
 		{
 			
-			Life += Flages[temp].life;
+			//Life += Flages[temp].life;
 			sec += Flages[temp].sec;
 			itemtime(&playeR.sight_p);
 			if (flag_time == 0){
@@ -329,14 +329,75 @@ void bomb()
 		temp_y = Y - Bomb_Range;
 	}
 
+	/*
 	for (int i = 0; i < Bomb_Range * 2 + 1; i++)
 	{
 		for (int j = 0; j < Bomb_Range * 2 + 1; j++)
 		{
-			if (map[temp_y + i][temp_x + j] == PAST_PATH)
+			if (map[temp_y + i][temp_x + j] != WALL)
 				continue;
 			map[temp_y + i][temp_x + j] = SPACE;
 		}
+	}
+	*/
+	
+	int x, y, t_x, t_y;
+
+	if (X - Bomb_Range < 1)
+	{
+		t_x = 53 - 2 * (eyesight - 1 - Bomb_Range);
+	}
+	else if (X + Bomb_Range >= (mapSize - 1))
+	{
+		t_x = 53 + 2 * (eyesight - 1 - Bomb_Range);
+	}
+	/*else if (temp_x)
+	{
+
+	}*/
+	else
+	{
+		t_x = 53;
+	}
+	if (Y - Bomb_Range < 1)
+	{
+		t_y = 15 - eyesight + 1 + Bomb_Range;
+	}
+	else if (Y + Bomb_Range >= (mapSize - 1))
+	{
+		t_y = 15 + eyesight - 1 - Bomb_Range;
+	}
+	/*else if()
+	{
+		
+	}*/
+	else
+	{
+		t_y = 15;
+	}
+
+	for (int i = 1; i <= Bomb_Range; i++)
+	{
+		printMap();
+		y = t_y - i;
+		for (int j = 0; j < 2 * i + 1; j++)
+		{
+			x = t_x - i * 2;
+			for (int k = 0; k < 2 * i + 1; k++)
+			{
+				gotoxy(x, y);
+				if (j == 0 || k == 0 || j == (2 * i) || k == (2 * i))
+				{
+					if (map[temp_y + Bomb_Range - i + j][temp_x + Bomb_Range - i + k] == WALL)
+						map[temp_y + Bomb_Range - i + j][temp_x + Bomb_Range - i + k] = SPACE;
+					printf("■");
+				}
+				x += 2;
+			}
+			y++;
+		}
+
+		Sleep(300);
 	}
 
 	return 0;

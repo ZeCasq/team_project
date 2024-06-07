@@ -16,7 +16,6 @@ int Life, sec, clear, eyesight;
 extern int** map,flag_time;
 struct condition playeR = { 0,0 };
 int main(void) {
-	bomb_num = 3;
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
 	
 	int POS = main_menu();
@@ -314,7 +313,8 @@ void con_txt(void) {
 
 void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화 ㄱㄴ하게 하자
 	initFlag();
-	X = Y = 2;
+	X = Y = 1;
+	bomb_num = 99;
 	
 	if (lev == 1)
 	{
