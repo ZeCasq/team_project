@@ -3,6 +3,7 @@
 void GameOver(void) {
 	mciSendString(TEXT("close mp3_1"), NULL, 0, NULL);
 	ov();
+	gameover();
 	int p = 0;
 	while (1) {
 		if (GetAsyncKeyState(VK_LEFT)) {

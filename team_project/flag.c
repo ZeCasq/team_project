@@ -260,7 +260,7 @@ int judgeFlag()
 			clear += Flages[temp].clear;
 			map[Y][X] = SPACE;
 			cls;
-			printf("½Â¸®");
+			claer();
 			Sleep(1000);
 			cls;
 			if (lev < 3) {
