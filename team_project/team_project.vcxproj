@@ -131,6 +131,7 @@
     <ClInclude Include="head.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="sound.c" />
     <ClCompile Include="CursorView.c" />
     <ClCompile Include="GameOver.c" />
     <ClCompile Include="gotoxy.c" />
@@ -146,6 +147,14 @@
     <ClCompile Include="start_screen.c" />
     <ClCompile Include="story.c" />
     <ClCompile Include="title.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="button_s.mp3" />
+    <Media Include="click_s.mp3" />
+    <Media Include="flag_s.mp3" />
+    <Media Include="gameover.mp3" />
+    <Media Include="maze.mp3" />
+    <Media Include="warp.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,16 +1,25 @@
 #include "head.h"
 
 void GameOver(void) {
+	mciSendString(TEXT("close mp3_1"), NULL, 0, NULL);
+	ov();
 	int p = 0;
 	while (1) {
-		if (GetAsyncKeyState(VK_LEFT))
+		if (GetAsyncKeyState(VK_LEFT)) {
+			bs();
 			if (p == 0) p = 1;
 			else p -= 1;
-		else if (GetAsyncKeyState(VK_RIGHT))
+		}
+		else if (GetAsyncKeyState(VK_RIGHT)) {
+			bs();
 			if (p == 1) p = 0;
 			else p += 1;
-		else if (GetAsyncKeyState(VK_RETURN))//엔터를 눌렀을 때
+		}
+		else if (GetAsyncKeyState(VK_RETURN)){//엔터를 눌렀을 때
+			cl();
+			mciSendString(TEXT("close mp3_4"), NULL, 0, NULL);
 			break;
+	}
 		switch (p) {
 		case 0:
 			SetColor(11);

@@ -196,6 +196,7 @@ int makeFlag()
 
 	for (int i = 0; i < 5; i++)				//9번깃발 배치(telpo)
 	{
+		
 
 		while (1)
 		{
@@ -252,8 +253,10 @@ int judgeFlag()
 	}
 	else
 	{
+		fl();
 		if (temp == 2)
 		{
+			Start_time = time(0);
 			clear += Flages[temp].clear;
 			map[Y][X] = SPACE;
 			cls;
@@ -270,11 +273,13 @@ int judgeFlag()
 			return 1;
 		}
 		else if (temp == 3)				//꽝
-		{	
+		{
+			
 			map[Y][X] = SPACE;
 		}
 		else if (temp == 4)				//시야버프
 		{
+			
 			itemtime(&playeR.sight_p);
 			if (flag_time == 0) {
 				flag_time = time(0);
@@ -283,6 +288,7 @@ int judgeFlag()
 		}
 		else if (temp == 5)				//방향키 변환
 		{
+			
 			itemtime(&playeR.mushroom);
 			if (flag_time3 == 0) {
 				flag_time3 = time(0);
@@ -291,16 +297,19 @@ int judgeFlag()
 		}
 		else if (temp == 6)				//시간 증가
 		{
+			
 			Start_time += 30;
 			map[Y][X] = SPACE;
 		}
 		else if (temp == 7)				//시간 감소
 		{
+			;
 			Start_time -= 30;
 			map[Y][X] = SPACE;
 		}
 		else if (temp == 8)				//시야너프
 		{
+			
 			itemtime(&playeR.sight_m);
 			if (flag_time2 == 0) {
 				flag_time2 = time(0);
@@ -309,6 +318,7 @@ int judgeFlag()
 		}
 		else if (temp == 9)						//텔포
 		{
+			tp();
 			map[Y][X] = SPACE;
 			while (1)
 			{
@@ -317,6 +327,7 @@ int judgeFlag()
 				if (map[y][x] == SPACE)
 				{
 					teleport(y, x);
+					mciSendString(TEXT("close mp3_5"), NULL, 0, NULL);
 					return 0;
 				}
 				else
@@ -324,25 +335,16 @@ int judgeFlag()
 					continue;
 				}
 			}
+			
 			return 0;
 		}
 		else if (temp == 10)				//bomb
 		{
+			
 			bomb_num += 1;
 			map[Y][X] = SPACE;
 		}
-		else
-		{
-			
-			//Life += Flages[temp].life;
-			sec += Flages[temp].sec;
-			itemtime(&playeR.sight_p);
-			if (flag_time == 0){
-			flag_time = time(0);
-			}
-			map[Y][X] = SPACE;
-			return 0;
-		}
+		
 	}
 	//Flag[index].~~처럼 값 활용~
 }

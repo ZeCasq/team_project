@@ -26,11 +26,14 @@ int main(void) {
 		
 		gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
 		while (!GetAsyncKeyState(VK_RETURN));
+		cl();
 		cls;
 		Sleep(300);
 		con_txt();
 		gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
 		while (!GetAsyncKeyState(VK_RETURN));
+		cl();
+		
 		cls;
 		Sleep(300);
 		first = 1;
@@ -66,22 +69,24 @@ int main_menu(void) {
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
 	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.	 
 	mainPtr();
-	mciSendString(TEXT("open \"maze.mp3\" type mpegvideo alias mp3_1"), NULL, 0, NULL);
-	mciSendString(TEXT("play mp3_1"), NULL, 0, NULL);
+	
 	while (1) {
 		title1();
-		Sleep(300);
-		blank();
-		Sleep(100);
+		
 		if (GetAsyncKeyState(VK_LEFT)) {
+			bs();
 			if (p == 0) p = 2;
 			else p -= 1;
 		}
-		else if (GetAsyncKeyState(VK_RIGHT))
+		else if (GetAsyncKeyState(VK_RIGHT)) {
+			bs();
 			if (p == 2) p = 0;
 			else p += 1;
-		else if (GetAsyncKeyState(VK_RETURN))//엔터를 눌렀을 때
+		}
+		else if (GetAsyncKeyState(VK_RETURN)){
+			cl(); 
 			break;
+	}
 		switch (p) {
 		case 0:
 			SetColor(11);
@@ -120,7 +125,8 @@ void game(void) {
 	int count = 0;
 	//initFlag();//난이도에 따라 깃발 초기화가 다르면 좋을듯
 	init();
-
+	mciSendString(TEXT("open \"maze.mp3\" type mpegvideo alias mp3_1"), NULL, 0, NULL);
+	mciSendString(TEXT("play mp3_1"), NULL, 0, NULL);
 	int ch;				
 	Start_time = time(0); //게임 시작 시간 설정
 	GamePlay();
@@ -128,6 +134,9 @@ void game(void) {
 	gotoxy(0, 0);
 	printf("level: %d", lev);
 	while (1) {
+		if (time(0) - a > 1) {
+			mciSendString(TEXT("close mp3_6"), NULL, 0, NULL);
+		}
 		if (time(0) - flag_time < playeR.sight_p) {
 			if (count == 0) {
 				cls;
@@ -247,6 +256,7 @@ void game(void) {
 				bomb_num -= 1;
 				bomb();
 			}
+			map[Y][X] = 9;
 		}
 
 
@@ -282,24 +292,33 @@ void menu(void) {
 	gotoxy(20, 16); printf("메인 메뉴");
 	int pos = 0;
 	while (1) {
-		if (GetAsyncKeyState(VK_UP))
+		if (GetAsyncKeyState(VK_UP)) {
+			bs();
 			if (pos == 0) pos = 3;
 			else pos -= 1;
-		else if (GetAsyncKeyState(VK_DOWN))
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			bs();
 			if (pos == 3) pos = 0;
 			else pos += 1;
-		else if (GetAsyncKeyState(VK_RETURN))//엔터를 눌렀을 때
+		}
+		else if (GetAsyncKeyState(VK_RETURN)) {				//엔터를 눌렀을 때
+			cl();
 			break;
+		}
 		switch (pos) {
 		case 0:
+			
 			SetColor(11);
 			gotoxy(20, 10); printf("재개");
 			SetColor(15);
 			gotoxy(20, 12); printf("처음부터 다시 시작");
 			gotoxy(20, 14); printf("게임 설명");
 			gotoxy(20, 16); printf("메인 메뉴");
+			
 			break;
 		case 1:
+			
 			gotoxy(20, 10); printf("재개");
 			SetColor(11);
 			gotoxy(20, 12); printf("처음부터 다시 시작");
@@ -308,6 +327,7 @@ void menu(void) {
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 2:
+			
 			gotoxy(20, 10); printf("재개");
 			gotoxy(20, 12); printf("처음부터 다시 시작");
 			SetColor(11);
@@ -316,6 +336,7 @@ void menu(void) {
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 3:
+			
 			gotoxy(20, 10); printf("재개");
 			gotoxy(20, 12); printf("처음부터 다시 시작");
 			gotoxy(20, 14); printf("게임 설명");
@@ -325,13 +346,14 @@ void menu(void) {
 			break;
 		default: break;
 		}
-		delay;
+		
 	}
 	
 	switch (pos){
 	case 0:
 		break;
 	case 1:
+		mciSendString(TEXT("close mp3_1"), NULL, 0, NULL);
 		cls;
 		playeR.mushroom = 0;
 		playeR.sight_m = 0;
@@ -365,6 +387,7 @@ void menu(void) {
 		menu();
 		break;
 	case 3:										//메인 메뉴로 돌아가기
+		mciSendString(TEXT("close mp3_1"), NULL, 0, NULL);
 		cls;
 		main();
 		break;

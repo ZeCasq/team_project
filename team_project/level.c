@@ -34,14 +34,21 @@ void level(void) {
 	gotoxy(47, 20); printf("보통");
 	gotoxy(75, 20); printf("어려움");
 	while (1) {
-		if (GetAsyncKeyState(VK_LEFT))
+		if (GetAsyncKeyState(VK_LEFT)) {
+			bs();
 			if (POS == 1) POS = 3;
 			else POS -= 1;
-		else if (GetAsyncKeyState(VK_RIGHT))
+		}
+		else if (GetAsyncKeyState(VK_RIGHT)) {
+			bs();
 			if (POS == 3) POS = 1;
 			else POS += 1;
-		else if (GetAsyncKeyState(VK_RETURN))//엔터를 눌렀을 때
+		}
+		else if (GetAsyncKeyState(VK_RETURN)) {//엔터를 눌렀을 때
+			cl();
 			break;
+		}
+
 		switch (POS) {
 		case 1:
 			SetColor(11);
@@ -66,7 +73,7 @@ void level(void) {
 			break;
 		default:break;
 		}
-		delay;
+		
 	}
 	lev =  POS;
 	cls;

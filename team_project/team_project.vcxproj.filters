@@ -68,5 +68,28 @@
     <ClCompile Include="Past.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="sound.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="maze.mp3">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="button_s.mp3">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="click_s.mp3">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="gameover.mp3">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="warp.mp3">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="flag_s.mp3">
+      <Filter>리소스 파일</Filter>
+    </Media>
   </ItemGroup>
 </Project>

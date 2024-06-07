@@ -27,7 +27,9 @@ void story(void)
             // 키보드 입력 체크
             if (_kbhit()) {
                 char ch = _getch();  // 입력된 키를 읽음
+                
                 if (ch == 's') {
+                    cl();
                     stop = 1;  // 종료 플래그 설정
                     
                 }
@@ -43,7 +45,7 @@ void story(void)
 
     gotoxy(73, 25); printf("넘어가려면 enter 누르시오        ");
     while (!GetAsyncKeyState(VK_RETURN));
-
+    cl();
     
     delay;
     cls;

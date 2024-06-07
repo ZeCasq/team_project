@@ -20,7 +20,7 @@
 #define pause system("pause > nul") //프로그램 종료후 뜨는 문구 제거
 #define cls system("cls") //화면 초기화 함수 
 #define delay Sleep(500) //지연
-#define full_time 300 //게임 제한 시간
+#define full_time 10 //게임 제한 시간
 
 void SetColor(int color); // 색 설정
 void CursorView(char show); //커서 존재 유무 조정
@@ -37,6 +37,12 @@ void pause_item(time_t* );
 void itemtime(time_t* );
 void explain(void);
 void Past_path(int** n, int X, int Y);
+void bs(void);
+void bss(void);
+void cl(void);
+void ov(void);
+void tp(void);
+void fl(void);
 //void displayMazeWithLimitedView();
 
 
@@ -71,3 +77,4 @@ time_t Stop_time; //일시정지 시간
 
 int lev;				//1 == 쉬움, 2 ==... 3==...
 int bomb_num;
+time_t a;
