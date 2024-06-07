@@ -13,9 +13,10 @@ int X, Y;
 int Life, sec, clear, eyesight;
 
 
-extern int** map,flag_time;
-struct condition playeR = { 0,0 };
+extern int** map,flag_time,flag_time2, flag_time3;
+struct condition playeR = { 0,0,0 };
 int main(void) {
+	
 	setlocale(LC_CTYPE, ""); // 유니코드 출력 설정
 	
 	int POS = main_menu();
@@ -65,7 +66,8 @@ int main_menu(void) {
 	CursorView(0);    //커서의 깜빡임을 숨겨준다.
 	system("COLOR 0F");    //화면 배경을 검정, 글씨 색깔을 하얀색으로 설정해 준다.	 
 	mainPtr();
-	
+	mciSendString(TEXT("open \"maze.mp3\" type mpegvideo alias mp3_1"), NULL, 0, NULL);
+	mciSendString(TEXT("play mp3_1"), NULL, 0, NULL);
 	while (1) {
 		title1();
 		Sleep(300);
@@ -112,6 +114,9 @@ int main_menu(void) {
 }
 //기본적인 움직임 구현 툴
 void game(void) {
+	int anti = 0;
+	int cou = 0;
+	int coun = 0;
 	int count = 0;
 	//initFlag();//난이도에 따라 깃발 초기화가 다르면 좋을듯
 	init();
@@ -124,19 +129,61 @@ void game(void) {
 	printf("level: %d", lev);
 	while (1) {
 		if (time(0) - flag_time < playeR.sight_p) {
-			if (count == 0)eyesight += 3;
-			count = 2;
-			gotoxy(22, 28);
-			printf("시야 버프: %3d", playeR.sight_p -time(0) + flag_time );
-		}
-		else if(count == 2) {
+			if (count == 0) {
 				cls;
+				gotoxy(0, 0);
+				printf("level: %d", lev);
+				eyesight += 2;
+			}
+			count = 2;
+			gotoxy(2, 23);
+			printf("시야 버프: %3d", playeR.sight_p - time(0) + flag_time);
+		}
+		else if (count == 2 ) {
+				cls;
+				gotoxy(0, 0);
+				printf("level: %d", lev);
 				flag_time = 0;
-				eyesight -= 3;
+				eyesight -= 2;
 				playeR.sight_p = 0;
 				count = 0;
 		}
-
+		if (time(0) - flag_time2 < playeR.sight_m) {
+			if (coun == 0) {
+				cls;
+				gotoxy(0, 0);
+				printf("level: %d", lev);
+				eyesight -= 3;
+			}			coun = 2;
+			gotoxy(2, 22);
+			printf("시야 너프: %3d", playeR.sight_m - time(0) + flag_time2);
+		}
+		else if (coun == 2  ){
+			cls;
+			gotoxy(0, 0);
+			printf("level: %d", lev);
+			flag_time2 = 0;
+			eyesight += 3;
+			playeR.sight_m = 0;
+			coun = 0;
+		}
+		if (time(0) - flag_time3 < playeR.mushroom) {
+			if (cou == 0) {
+				anti = 1;
+			}
+			cou = 2;
+			gotoxy(2, 21);
+			printf("환각 버섯: %3d", playeR.mushroom - time(0) + flag_time3);
+		}
+		else if (cou == 2 ) {
+			cls;
+			gotoxy(0, 0);
+			printf("level: %d", lev);
+			flag_time3 = 0;
+			anti = 0;
+			playeR.mushroom = 0;
+			cou = 0;
+		}
 		
 		
 		//esc 눌러서 일시정지
@@ -148,26 +195,51 @@ void game(void) {
 			pause_item(&playeR.sight_p);
 			pause_item(&playeR.sight_m);
 		}
-		if (GetAsyncKeyState(VK_LEFT) & 0x0001) { //왼쪽
-			if(lev == 1)
-			Past_path(map, X, Y);
-			judgeMove(X - 1, Y);
-		}
-		if (GetAsyncKeyState(VK_RIGHT) & 0x0001) { //오른쪽
-			if (lev == 1)
-			Past_path(map, X, Y);
-			judgeMove(X + 1, Y);
+		if (!anti) {
+			if (GetAsyncKeyState(VK_LEFT) & 0x0001) { //왼쪽
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X - 1, Y);
+			}
+			if (GetAsyncKeyState(VK_RIGHT) & 0x0001) { //오른쪽
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X + 1, Y);
 
+			}
+			if (GetAsyncKeyState(VK_UP) & 0x0001) { //위
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X, Y - 1);
+			}
+			if (GetAsyncKeyState(VK_DOWN) & 0x0001) { //아래
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X, Y + 1);
+			}
 		}
-		if (GetAsyncKeyState(VK_UP) & 0x0001) { //위
-			if (lev == 1)
-			Past_path(map, X, Y);
-			judgeMove(X, Y - 1);
-		}
-		if (GetAsyncKeyState(VK_DOWN) & 0x0001) { //아래
-			if (lev == 1)
-			Past_path(map, X, Y);
-			judgeMove(X, Y + 1);
+		else {
+			if (GetAsyncKeyState(VK_RIGHT) & 0x0001) { //왼쪽
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X - 1, Y);
+			}
+			if (GetAsyncKeyState(VK_LEFT) & 0x0001) { //오른쪽
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X + 1, Y);
+
+			}
+			if (GetAsyncKeyState(VK_DOWN) & 0x0001) { //위
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X, Y - 1);
+			}
+			if (GetAsyncKeyState(VK_UP) & 0x0001) { //아래
+				if (lev == 1)
+					Past_path(map, X, Y);
+				judgeMove(X, Y + 1);
+			}
 		}
 		if (GetAsyncKeyState(0x20) & 0x0001)		//폭탄 까기
 		{
@@ -205,8 +277,8 @@ void menu(void) {
 	cls;
 	
 	gotoxy(20, 10); printf("재개");
-	gotoxy(20, 12); printf("게임 설명");
-	gotoxy(20, 14); printf("게임 저장");
+	gotoxy(20, 12); printf("처음부터 다시 시작");
+	gotoxy(20, 14); printf("게임 설명");
 	gotoxy(20, 16); printf("메인 메뉴");
 	int pos = 0;
 	while (1) {
@@ -223,30 +295,30 @@ void menu(void) {
 			SetColor(11);
 			gotoxy(20, 10); printf("재개");
 			SetColor(15);
-			gotoxy(20, 12); printf("게임 설명");
-			gotoxy(20, 14); printf("게임 저장");
+			gotoxy(20, 12); printf("처음부터 다시 시작");
+			gotoxy(20, 14); printf("게임 설명");
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 1:
 			gotoxy(20, 10); printf("재개");
 			SetColor(11);
-			gotoxy(20, 12); printf("게임 설명");
+			gotoxy(20, 12); printf("처음부터 다시 시작");
 			SetColor(15);
-			gotoxy(20, 14); printf("게임 저장");
+			gotoxy(20, 14); printf("게임 설명");
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 2:
 			gotoxy(20, 10); printf("재개");
-			gotoxy(20, 12); printf("게임 설명");
+			gotoxy(20, 12); printf("처음부터 다시 시작");
 			SetColor(11);
-			gotoxy(20, 14); printf("게임 저장");
+			gotoxy(20, 14); printf("게임 설명");
 			SetColor(15);
 			gotoxy(20, 16); printf("메인 메뉴");
 			break;
 		case 3:
 			gotoxy(20, 10); printf("재개");
-			gotoxy(20, 12); printf("게임 설명");
-			gotoxy(20, 14); printf("게임 저장");
+			gotoxy(20, 12); printf("처음부터 다시 시작");
+			gotoxy(20, 14); printf("게임 설명");
 			SetColor(11);
 			gotoxy(20, 16); printf("메인 메뉴");
 			SetColor(15);
@@ -261,10 +333,17 @@ void menu(void) {
 		break;
 	case 1:
 		cls;
+		playeR.mushroom = 0;
+		playeR.sight_m = 0;
+		playeR.sight_p = 0;
+		game();
+		break;
+	case 2:		//게임 설명
+		cls;
 		con_txt();
 		int k = 0;
 		while (1) {
-			if(GetAsyncKeyState(VK_RIGHT)|| GetAsyncKeyState(VK_LEFT) ){
+			if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_LEFT)) {
 				if (k == 0) {
 					cls;
 					explain();
@@ -285,8 +364,6 @@ void menu(void) {
 		delay;
 		menu();
 		break;
-	case 2:										//게임 저장
-		break;
 	case 3:										//메인 메뉴로 돌아가기
 		cls;
 		main();
@@ -303,7 +380,8 @@ void con_txt(void) {
 	gotoxy(20,12); printf("\u2192	  right");
 	gotoxy(20,14); printf("\u2191	  up");
 	gotoxy(20,16); printf("\u2193	  down");
-	gotoxy(20,18); printf("esc	  pause");
+	gotoxy(20, 18); printf("space	  bomb");
+	gotoxy(20,20); printf("esc	  pause");
 	gotoxy(73, 25); printf("다시 돌아가려면 enter 누르세요..");
 
 }

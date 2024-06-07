@@ -4,11 +4,11 @@
 #include <stralign.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <mmsystem.h>
 #include <malloc.h>
 #include <locale.h>
 #include<stdbool.h>
-
+#pragma comment(lib, "winmm.lib")
 
 #define START 3
 #define FINISH 4
@@ -50,6 +50,7 @@ typedef struct Flag {		//깃발마다 멤버의 값을 음,양으로 줘서 계산하자 ex) life =
 struct condition {
 	time_t sight_p;
 	time_t sight_m;
+	time_t mushroom;
 };
 
 

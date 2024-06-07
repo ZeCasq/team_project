@@ -258,8 +258,54 @@ int judgeFlag()
 			map[Y][X] = SPACE;
 			cls;
 			printf("승리");
-			Sleep(100000); 
+			Sleep(1000);
+			cls;
+			if (lev < 3) {
+				lev += 1;
+				game();
+			}
+			else {
+				//게임 완전 클리어
+			}
 			return 1;
+		}
+		else if (temp == 3)				//꽝
+		{	
+			map[Y][X] = SPACE;
+		}
+		else if (temp == 4)				//시야버프
+		{
+			itemtime(&playeR.sight_p);
+			if (flag_time == 0) {
+				flag_time = time(0);
+			}
+			map[Y][X] = SPACE;
+		}
+		else if (temp == 5)				//방향키 변환
+		{
+			itemtime(&playeR.mushroom);
+			if (flag_time3 == 0) {
+				flag_time3 = time(0);
+			}
+			map[Y][X] = SPACE;
+		}
+		else if (temp == 6)				//시간 증가
+		{
+			Start_time += 30;
+			map[Y][X] = SPACE;
+		}
+		else if (temp == 7)				//시간 감소
+		{
+			Start_time -= 30;
+			map[Y][X] = SPACE;
+		}
+		else if (temp == 8)				//시야너프
+		{
+			itemtime(&playeR.sight_m);
+			if (flag_time2 == 0) {
+				flag_time2 = time(0);
+			}
+			map[Y][X] = SPACE;
 		}
 		else if (temp == 9)						//텔포
 		{
@@ -329,17 +375,6 @@ void bomb()
 		temp_y = Y - Bomb_Range;
 	}
 
-	/*
-	for (int i = 0; i < Bomb_Range * 2 + 1; i++)
-	{
-		for (int j = 0; j < Bomb_Range * 2 + 1; j++)
-		{
-			if (map[temp_y + i][temp_x + j] != WALL)
-				continue;
-			map[temp_y + i][temp_x + j] = SPACE;
-		}
-	}
-	*/
 
 	int x, y, t_x, t_y;
 
@@ -415,96 +450,7 @@ void bomb()
 
 void teleport(int y, int x)
 {
-	/*
-	int** p = (int**)malloc(sizeof(int*) * (eyesight * 2 + 1));
-	int** stack = (int**)malloc(sizeof(int*) * ((eyesight * 2 + 1) * (eyesight * 2 + 1)));
-	int head = 0;
-	int temp_x, temp_y;
-	int temp_a, temp_b;
-	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
-	{
-		stack[i] = (int*)malloc(sizeof(int) * 2);
-	}
-
-	for (int i = 0; i < eyesight * 2 + 1; i++)
-	{
-		p[i] = (int*)malloc(sizeof(int) * (eyesight * 2) + 1);
-		for (int j = 0; j < eyesight * 2 + 1; j++) {
-			p[i][j] = SPACE;
-			stack[i * (eyesight * 2 + 1) + j][0] = i;
-			stack[i * (eyesight * 2 + 1) + j][1] = j;
-		}
-	}
-
-	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
-	{
-		temp_a = rand() % ((eyesight * 2 + 1) * (eyesight * 2 + 1));
-		temp_x = stack[i][0];
-		temp_y = stack[i][1];
-		stack[i][0] = stack[temp_a][0];
-		stack[i][1] = stack[temp_a][1];
-		stack[temp_a][0] = temp_x;
-		stack[temp_a][1] = temp_y;
-	}
-
-	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
-	{
-		p[stack[i][0]][stack[i][1]] = WALL;
-		printMap();
-		print_telpo(p);
-	}
-
-	head = (eyesight * 2 + 1) * (eyesight * 2 + 1);
-
-
-	/*
-	for (int i = 0; i < eyesight * 2 + 1; i++)
-	{
-		p[i] = (int*)malloc(sizeof(int) * (eyesight * 2) + 1);
-		for (int j = 0; j < eyesight * 2 + 1; j++) {
-			p[i][j] = SPACE;
-		}
-	}
-
-	for (int i = 0; i < (eyesight * 2 + 1) * (eyesight * 2 + 1); i++)
-	{
-		while (1)
-		{
-			temp_x = rand() % (eyesight * 2 + 1);
-			temp_y = rand() % (eyesight * 2 + 1);
-			if (p[temp_x][temp_y] == SPACE)
-			{
-				stack[head][0] = temp_x;
-				stack[head][1] = temp_y;
-				head++;
-				p[temp_x][temp_y] = WALL;
-				printMap();
-				print_telpo(p);
-				Sleep(5);
-				break;
-			}
-			else
-			{
-				continue;
-			}
-		}
-	}
-	*/
-	/*
-	X = x;
-	Y = y;
-
-	Sleep(150);
-
-	while (head > 0)
-	{
-		temp_x = stack[--head][0];
-		temp_y = stack[head][1];
-		p[temp_x][temp_y] = SPACE;
-		printMap();
-		print_telpo(p);
-	}
-	*/
+	
 
 	int** p = (int**)malloc(sizeof(int*) * (eyesight * 2 + 1));
 	int** p2 = (int**)malloc(sizeof(int*) * (eyesight * 2 + 1));
@@ -593,27 +539,7 @@ void teleport(int y, int x)
 
 void print_telpo(int** p, int** p2, int past_x, int past_y, int past_X, int past_Y)
 {
-	/*
-	int temp_x, temp_y;
-	int x = 53 - eyesight * 2;
-	int y = 15 - eyesight;
-	for (int i = 0; i < eyesight * 2 + 1; i++)
-	{
-		gotoxy(x, y);
-		for (int j = 0; j < eyesight * 2 + 1; j++)
-		{
-			if (p[i][j] == WALL)
-			{
-				printf("■");
-			}
-			else
-			{
-				gotoxy(x + 2, y);
-			}
-		}
-		y++;
-	}
-	*/
+	
 	int temp_x, temp_y;
 	if (X - eyesight < 0)
 	{
@@ -723,3 +649,12 @@ void judgeMove(int x, int y)
 
 	return;
 }
+/*멘트 구문
+flag_time100 = time(0);
+cls;
+while(time(0) - flag_time100 < 5){
+gotoxy(2,10);
+printf("멘트")
+}
+cls;
+*/
