@@ -322,7 +322,7 @@ void bomb()
 	}
 	else if (Y + Bomb_Range >= (mapSize - 1))
 	{
-		temp_y = (mapSize - 1) - (2 * Bomb_Range +  1);
+		temp_y = (mapSize - 1) - (2 * Bomb_Range + 1);
 	}
 	else
 	{
@@ -340,7 +340,7 @@ void bomb()
 		}
 	}
 	*/
-	
+
 	int x, y, t_x, t_y;
 
 	if (X - Bomb_Range < 1)
@@ -351,14 +351,19 @@ void bomb()
 	{
 		t_x = 53 + 2 * (eyesight - 1 - Bomb_Range);
 	}
-	/*else if (temp_x)
+	else if (X < eyesight)
 	{
-
-	}*/
+		t_x = 53 - 2 * (eyesight - X);
+	}
+	else if (X > (mapSize - 1) - eyesight)
+	{
+		t_x = 53 + 2 * (eyesight - (mapSize - 1 - X));
+	}
 	else
 	{
 		t_x = 53;
 	}
+
 	if (Y - Bomb_Range < 1)
 	{
 		t_y = 15 - eyesight + 1 + Bomb_Range;
@@ -367,16 +372,21 @@ void bomb()
 	{
 		t_y = 15 + eyesight - 1 - Bomb_Range;
 	}
-	/*else if()
+	else if(Y < eyesight)
 	{
-		
-	}*/
+		t_y = 15 - (eyesight - Y);
+	}
+	else if (Y > (mapSize - 1) - eyesight)
+	{
+		t_y = 15 +  (eyesight - (mapSize - 1 - Y));
+
+	}
 	else
 	{
 		t_y = 15;
 	}
 
-	for (int i = 1; i <= Bomb_Range; i++)
+	for (int i = 0; i <= Bomb_Range; i++)
 	{
 		printMap();
 		y = t_y - i;

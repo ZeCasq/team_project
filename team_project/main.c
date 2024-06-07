@@ -313,7 +313,7 @@ void con_txt(void) {
 
 void init() {			//lev별로 다른 초기화ㄱㄴ, initFlag()에서도 레벨별로 다른 초기화 ㄱㄴ하게 하자
 	initFlag();
-	X = Y = 1;
+	X = Y = 98;
 	bomb_num = 99;
 	
 	if (lev == 1)
