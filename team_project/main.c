@@ -370,12 +370,16 @@ void menu(void) {
 	case 2:		//게임 설명
 		cls;
 		con_txt();
+		gotoxy(47, 25);
+		printf("<<<1 / 2>>>");
 		int k = 0;
 		while (1) {
 			if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_LEFT)) {
 				if (k == 0) {
 					cls;
 					explain();
+					gotoxy(47, 25);
+					printf("<<<2 / 2>>>");
 					k = 1;
 					Sleep(300);
 					continue;
@@ -383,6 +387,8 @@ void menu(void) {
 				if (k == 1) {
 					cls;
 					con_txt();
+					gotoxy(47, 25);
+					printf("<<<1 / 2>>>");
 					k = 0;
 					Sleep(300);
 				}
@@ -406,12 +412,12 @@ void menu(void) {
 
 //조작키 설명
 void con_txt(void) {
-	gotoxy(20,10); printf("\u2190    left");
-	gotoxy(20,12); printf("\u2192	  right");
-	gotoxy(20,14); printf("\u2191	  up");
-	gotoxy(20,16); printf("\u2193	  down");
-	gotoxy(20, 18); printf("space	  bomb");
-	gotoxy(20,20); printf("esc	  pause");
+	gotoxy(20,10); printf("\u2190         left");
+	gotoxy(20,12); printf("\u2192         right");
+	gotoxy(20,14); printf("\u2191	       up");
+	gotoxy(20,16); printf("\u2193	       down");
+	gotoxy(20, 18); printf("space      bomb");
+	gotoxy(20,20); printf("esc	       pause");
 	gotoxy(73, 25); printf("다시 돌아가려면 enter 누르세요..");
 
 }
